@@ -36,8 +36,8 @@ const ProductList = ({currentProducts}) => {
       </InputGroup>
       <Row>
         {filteredProducts.map(product => (
-          <Col key={product.id} className="col-12 col-md-3 mb-4 text-muted">
-            <Card>
+          <Col key={product.id} className="col-12 col-md-3 mb-4">
+            <Card className="bg-dark text-light">
               <CardImg
                 className="card_img" 
                 top 
@@ -47,7 +47,7 @@ const ProductList = ({currentProducts}) => {
               <CardBody>
                 <CardTitle>{product.name}</CardTitle>
                 <CardSubtitle>${product.price}</CardSubtitle>
-                <Link className="btn btn-primary" to={`/item/${product.id}`}>View Item</Link>
+                <Link className="btn btn-primary mt-2" to={`/item/${product.id}`}>View Item</Link>
               </CardBody>
             </Card>
           </Col>
