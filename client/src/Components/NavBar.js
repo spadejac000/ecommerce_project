@@ -23,7 +23,7 @@ const NavBar = (props) => {
       color="dark" 
       dark 
       expand="md" 
-      // style={{marginBottom: "5rem"}}
+      style={{marginBottom: "5rem"}}
     >
       <NavbarBrand href="/">ReactCommerce</NavbarBrand>
       <NavbarToggler onClick={toggle} />

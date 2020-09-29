@@ -7,7 +7,7 @@ toast.configure();
 
 const CheckoutForm = () => {
 
-  const [products, setProducts] = useState([])
+  const [setProducts] = useState([])
 
   // remove all items from cart after purchase
   const clearCart = () => {

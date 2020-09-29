@@ -1,18 +1,16 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Card, CardImg,CardBody,
   CardTitle, CardSubtitle, Button, Container, Row, InputGroup,
   InputGroupAddon,
   Input, Col 
 } from 'reactstrap';
-import {ProductContext} from '../ProductContext';
 import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const ProductList = ({currentProducts}) => {
   
-  const [products] = useContext(ProductContext);
   const [search, setSearch] = useState('');
 
   const updateSearch = (event) => {

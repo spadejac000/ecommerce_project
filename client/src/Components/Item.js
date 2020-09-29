@@ -1,12 +1,32 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {ProductContext} from '../ProductContext';
 import { Row, Col, Card, CardText,
-  CardTitle, Button } from 'reactstrap';
+  CardTitle, Button, Alert, Fade } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 const Item = (props) => {
+
+  Alert.propTypes = {
+    className: PropTypes.string,
+    closeClassName: PropTypes.string,
+    color: PropTypes.string, // default: 'success'
+    isOpen: PropTypes.bool,  // default: true
+    toggle: PropTypes.func,
+    tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    fade: PropTypes.bool, // default: true
+    // Controls the transition of the alert fading in and out
+    // See Fade for more details
+    transition: PropTypes.shape(Fade.propTypes),
+  }
+
+  // alert state
+  const [fadeIn, setFadeIn] = useState(false);
+  const toggle = () => setFadeIn(!fadeIn);
+  const [visible, setVisible] = useState(true);
+  const onDismiss = () => setVisible(false);
 
   const itemId = props.match.params.id;
   const [products] = useContext(ProductContext);
@@ -40,12 +60,18 @@ const Item = (props) => {
       console.log(res.data)
     })
     
+    setFadeIn(true)
   }
   
 
   // retieve item information from context based on itemId
   return(
     <div>
+      <Fade in={fadeIn} tag="h5" className="mt-3">
+        <Alert color="success" isOpen={visible} toggle={onDismiss}>
+          Item added to cart
+        </Alert>
+      </Fade>
       {products.map(product => {
         if(product.id == itemId) {
           return(
@@ -56,7 +82,7 @@ const Item = (props) => {
                 {product.description}
               </Col>
               <Col className="col-12 col-md-3">
-                <Card body inverse color="info">
+                <Card body inverse color="dark">
                   <CardTitle className="text-warning"><strong>${product.price}</strong></CardTitle>
                   <CardText>Purchase within 24 hours to recieve a rebate...No refunds</CardText>
                   <Button color="secondary" onClick={addToCart}><FontAwesomeIcon icon={faShoppingCart}/> Add To Cart</Button>

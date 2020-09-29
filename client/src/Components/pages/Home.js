@@ -19,7 +19,6 @@ const Home = () => {
 
   return (
     <div>
-      <img className="mb-5" style={{width: "100%"}} src="https://s3.amazonaws.com/newfiles.bannersnack.net/lp/35/images/og-ecomerce-banners.png" alt=""/>
       <ProductList currentProducts={currentProducts}/>
       <Pagination productsPerPage={productsPerPage} totalProducts={products.length} paginate={paginate}/>
     </div>
