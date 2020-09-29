@@ -1,12 +1,13 @@
 import React, {useState, useContext} from 'react';
-import Products from '../Products';
+import ProductList from '../ProductList';
 import Pagination from '../Pagination';
 import {ProductContext} from '../../ProductContext';
 
 const Home = () => {
+
   const [products] = useContext(ProductContext);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(40);
+  const [productsPerPage] = useState(32);
 
   // get current products
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -18,7 +19,8 @@ const Home = () => {
 
   return (
     <div>
-      <Products currentProducts={currentProducts}/>
+      <img className="mb-5" style={{width: "100%"}} src="https://s3.amazonaws.com/newfiles.bannersnack.net/lp/35/images/og-ecomerce-banners.png" alt=""/>
+      <ProductList currentProducts={currentProducts}/>
       <Pagination productsPerPage={productsPerPage} totalProducts={products.length} paginate={paginate}/>
     </div>
   )

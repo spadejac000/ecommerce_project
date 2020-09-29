@@ -1,15 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 import {toast} from 'react-toastify';
-import { useHistory } from "react-router-dom";
 
 toast.configure();
 
 const CheckoutForm = () => {
 
-  // const onSuccessfulCheckout = () => Router.push("/success")
-  let history = useHistory();
+  const [products, setProducts] = useState([])
+
+  // remove all items from cart after purchase
+  const clearCart = () => {
+    axios.delete(`api/items/`).then(response => {
+      const cartList = []
+      setProducts(cartList);
+    });
+  }
 
   const handleToken = async (token) => {
     const response = await axios.post('/api/items/checkout', {
@@ -18,7 +24,8 @@ const CheckoutForm = () => {
     const {status} = response.data
     if(status === 'success') {
       console.log('this was a successful purchase')
-      history.push('/success')
+      clearCart()
+      window.location.href = response.data.redirect
     } else {
       console.log('poooop. this did not work')
     }

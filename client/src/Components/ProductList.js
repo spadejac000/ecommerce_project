@@ -10,7 +10,7 @@ import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-const Products = ({currentProducts}) => {
+const ProductList = ({currentProducts}) => {
   
   const [products] = useContext(ProductContext);
   const [search, setSearch] = useState('');
@@ -30,7 +30,7 @@ const Products = ({currentProducts}) => {
     <Container>
       <InputGroup style={{marginBottom: "5rem"}}>
         <Input 
-          placeholder="Search by typing..." 
+          placeholder="Search..." 
           value={search}
           onChange={updateSearch}
         />
@@ -38,7 +38,7 @@ const Products = ({currentProducts}) => {
       </InputGroup>
       <Row>
         {filteredProducts.map(product => (
-          <Col className="col-12 col-md-3 mb-4 text-muted">
+          <Col key={product.id} className="col-12 col-md-3 mb-4 text-muted">
             <Card>
               <CardImg
                 className="card_img" 
@@ -59,4 +59,4 @@ const Products = ({currentProducts}) => {
   )
 }
 
-export default Products;
+export default ProductList;

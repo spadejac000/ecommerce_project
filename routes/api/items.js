@@ -73,8 +73,10 @@ router.post('/checkout', async (req, res) => {
     console.error("error: ", error);
     status = "failure";
   }
-  res.json({error, status})
-  // res.redirect('/')
+  res.json({
+    redirect: '/success'
+    ,error, 
+    status})
 })
 
 //route DELETE api/items/:id
@@ -85,6 +87,14 @@ router.delete('/:id', (req, res) => {
   Item.findById(req.params.id)
     .then(item => item.remove().then(() => res.json({success: true})))
     .catch(err => res.status(404).json({success: false}))
+})
+
+//route DELETE api/items
+// Delete all items
+// Public
+router.delete('/', (req, res) => {
+  console.log('i recieved a delete ALL request!!!')
+  Item.deleteMany({}, (err) => console.log(err))
 })
 
 

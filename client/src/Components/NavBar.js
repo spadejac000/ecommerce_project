@@ -19,7 +19,12 @@ const NavBar = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   return(
-    <Navbar color="dark" dark expand="md" style={{marginBottom: "5rem"}}>
+    <Navbar 
+      color="dark" 
+      dark 
+      expand="md" 
+      // style={{marginBottom: "5rem"}}
+    >
       <NavbarBrand href="/">ReactCommerce</NavbarBrand>
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
