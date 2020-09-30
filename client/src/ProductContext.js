@@ -807,9 +807,10 @@ export const ProductProvider = (props) => {
       {
         name: "Luxury DVD Player",
         image: "https://i5.walmartimages.com/asr/9f2eaa7d-5fe0-45b9-9bf7-77bc214db1e0_1.5e5989d4d5f9eb6a1c38e0c92aa6f50a.jpeg?odnWidth=612&odnHeight=612&odnBg=ffffff",
-        price: 329.99,
+        price: 20329.99,
         id: uuid(),
-        description: 'Cras mauris tellus, hendrerit eget velit vel, sodales imperdiet mauris. Quisque eget tempor magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam lobortis lorem enim, non ultrices lectus venenatis eget. Praesent nibh mauris, sagittis at diam ut, feugiat pulvinar urna. Etiam a tortor nec nisl fermentum pharetra. Proin rhoncus non risus eget vulputate. Cras pharetra, dolor sed bibendum imperdiet, mi metus imperdiet ante, a varius nibh nisl nec turpis.'
+        description: 'This luxury DVD player can play any DVD in the entire world. Sit back a relax while watching all your favorite movies in the comfort of your own home using this DVD player. In addition, this unit comes with a 3 year warrenty. There has never been a better value on luxury DVD players. Act now while supplies last. (Financing for approved customers). Disclaimer - Not all DVDs from other countries or districts can actually be played on this device',
+        category: "Luxury"
       }
     ]
   )

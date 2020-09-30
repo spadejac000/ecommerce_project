@@ -7,7 +7,7 @@ const Home = () => {
 
   const [products] = useContext(ProductContext);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(32);
+  const [productsPerPage] = useState(24);
 
   // get current products
   const indexOfLastProduct = currentPage * productsPerPage;

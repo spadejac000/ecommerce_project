@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Collapse,
   Navbar,
@@ -11,8 +11,17 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router-dom';
+import axios from 'axios'
 
 const NavBar = (props) => {
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+      axios.get('api/items').then((res) => {
+      // handle success
+      setProducts(res.data)
+    })
+  }, []);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -33,7 +42,7 @@ const NavBar = (props) => {
             <NavLink href="/">Home</NavLink>
           </NavItem>
         </Nav>
-        <Link to="/cart"><FontAwesomeIcon className="text-white" size="lg" icon={faShoppingCart}/></Link>
+        <Link to="/cart" className="text-white"><FontAwesomeIcon className="text-white" size="lg" icon={faShoppingCart}/> ({products.length})</Link>
       </Collapse>
     </Navbar>
   )

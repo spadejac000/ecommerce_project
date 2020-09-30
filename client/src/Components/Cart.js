@@ -48,12 +48,13 @@ const Cart = () => {
   }
 
   // adding all the price of the items in the shopping cart together
+  let total = 0
   const totalPrice = () => {
-    let total = 0
+    
     for(let i = 0; i < products.length; i++) {
       total = parseFloat(total) + parseFloat(products[i].price)
     }
-    return total
+    return total.toFixed(2)
   }
  
   if(products.length === 0) {
@@ -100,8 +101,8 @@ const Cart = () => {
             token={handleToken}
             billingAddress
             shippingAddress
-            amount={2500}
-            name="the dishwasher"
+            amount={total * 100}
+            name="Products"
           />
         </Col>
       </Row>

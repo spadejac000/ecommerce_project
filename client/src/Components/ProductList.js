@@ -1,41 +1,50 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   Card, CardImg,CardBody,
   CardTitle, CardSubtitle, Button, Container, Row, InputGroup,
   InputGroupAddon,
-  Input, Col 
+  Input, Col, Form 
 } from 'reactstrap';
 import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import {ProductContext} from '../ProductContext';
 
 const ProductList = ({currentProducts}) => {
   
   const [search, setSearch] = useState('');
+  const [products, setProducts] = useContext(ProductContext);
+  const [initialValueProducts] = useState(products)
 
+    
   const updateSearch = (event) => {
+    setProducts(initialValueProducts)
     setSearch(event.target.value)
-    console.log(search)
   }
 
-  let filteredProducts = currentProducts.filter(
-    (product) => {
-      return product.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
-    }
-  )
+  const handleSearch = (e) => {
+    e.preventDefault()
+    setProducts(products.filter(
+      (product) => {
+        return product.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+      }
+    ))
+  }
 
   return(
     <Container>
-      <InputGroup style={{marginBottom: "5rem"}}>
-        <Input 
-          placeholder="Search..." 
-          value={search}
-          onChange={updateSearch}
-        />
-        <InputGroupAddon addonType="append"><Button color="dark" disabled><FontAwesomeIcon icon={faSearch}/></Button></InputGroupAddon>
-      </InputGroup>
+      <Form onSubmit={handleSearch}>
+        <InputGroup style={{marginBottom: "5rem"}}>
+          <Input 
+            placeholder="Search..." 
+            value={search}
+            onChange={updateSearch}
+          />
+          <InputGroupAddon addonType="append"><Button color="dark" ><FontAwesomeIcon icon={faSearch}/></Button></InputGroupAddon>
+        </InputGroup>
+      </Form>
       <Row>
-        {filteredProducts.map(product => (
+        {currentProducts.map(product => (
           <Col key={product.id} className="col-12 col-md-3 mb-4">
             <Card className="bg-dark text-light">
               <CardImg

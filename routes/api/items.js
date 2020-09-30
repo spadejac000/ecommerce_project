@@ -31,12 +31,12 @@ router.post('/', (req, res) => {
 
 // POST route for handling stripe checkout
 router.post('/checkout', async (req, res) => {
-  console.log("request: ", req.body);
+  console.log("request PRODUCT: ", req.body.product);
 
   let error;
   let status;
   try {
-    const {product, token} = req.body;
+    const {token} = req.body;
 
     const customer = await
     stripe.customers.create({
