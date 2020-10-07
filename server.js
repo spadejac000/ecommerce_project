@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const app = express();
 const items = require('./routes/api/items');
+const users = require('./routes/api/users');
 const keys = require('./config/keys');
 const stripe = require('stripe')(keys.stripeSecretKey);
 
@@ -11,6 +12,7 @@ app.use(bodyParser.json());
 
 //use routes
 app.use('/api/items', items)
+app.use('/api/users', users)
 
 const port = process.env.PORT || 5000;
 

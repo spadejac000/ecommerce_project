@@ -21,7 +21,7 @@ const NavBar = (props) => {
       // handle success
       setProducts(res.data)
     })
-  }, []);
+  }, [products]);
 
   const [isOpen, setIsOpen] = useState(false);
 
