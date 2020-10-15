@@ -20,20 +20,9 @@ const Home = () => {
   // change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
-  const submitHandler = (e) => {
-    e.preventDefault()
-    axios.delete('/api/users/logout').then(res => {
-      console.log(res.data)
-      window.location.href = res.data.redirect
-    }).catch(err => {
-      console.log(err)
-    })
-  }
-
   useEffect(() => {
     axios.get('/api/users').then((res) => {
       setData(res.data)
-      // window.location.href = res.data.redirect;
     })
   }, [])
 
@@ -41,9 +30,6 @@ const Home = () => {
   return (
     <div>
       <h1>Hi {data.name}</h1>
-      <Form onSubmit={submitHandler}>
-        <button type="submit">Log out</button>
-      </Form>
       <ProductList currentProducts={currentProducts}/>
       <Pagination productsPerPage={productsPerPage} totalProducts={products.length} paginate={paginate}/>
     </div>

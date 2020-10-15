@@ -15,10 +15,8 @@ code {
 
 .card_img {
   width: 'auto';
-  /* max-height: "16vw"; */
   height: 15em;
 }
-
 
 @media  screen and (max-width: 600px){
   .card_img {
