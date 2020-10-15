@@ -68,7 +68,7 @@ const Cart = () => {
   } else {
     return(
       <Row>
-        <Col className="col-12 col-md-10">
+        <Col className="col-12 col-md-9">
         <ListGroup className="pb-5">
           {products.map(({name, price, image, _id}) => (
             <ListGroupItem className="bg-dark text-white" key={_id}>
@@ -85,7 +85,7 @@ const Cart = () => {
                     delete
                   </Button>
                 </Col>
-                <Col style={{color: 'white'}}  className="col-12 col-md-2"><strong>${price}</strong></Col>
+                <Col style={{color: 'white'}}  className="col-12 col-md-2 text-right"><strong>${price}</strong></Col>
               </Row>
             </ListGroupItem>
           ))}
@@ -95,7 +95,11 @@ const Cart = () => {
           Total ({products.length} items): ${totalPrice()}
         </p>
         </Col>
-        <Col className="col-12 col-md-2">
+        <Col className="col-12 col-md-3">
+          <div className="card bg-dark p-3">
+          <p>
+            Total ({products.length} items): ${totalPrice()}
+          </p>
           <StripeCheckout
             stripeKey="pk_test_SDgPMwlzPSK2Fo1LNTcCKhYr00pduFRDkx"
             token={handleToken}
@@ -104,6 +108,7 @@ const Cart = () => {
             amount={total * 100}
             name="Products"
           />
+          </div>
         </Col>
       </Row>
     )
