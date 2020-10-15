@@ -10,6 +10,7 @@ import {
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router-dom';
 import axios from 'axios'
 
@@ -43,6 +44,7 @@ const NavBar = (props) => {
           </NavItem>
         </Nav>
         <Link to="/cart" className="text-white"><FontAwesomeIcon className="text-white" size="lg" icon={faShoppingCart}/> ({products.length})</Link>
+        <Link><FontAwesomeIcon className="text-white ml-4" size="lg" icon={faCog}/></Link>
       </Collapse>
     </Navbar>
   )

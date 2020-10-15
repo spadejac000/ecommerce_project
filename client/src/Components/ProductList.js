@@ -46,7 +46,7 @@ const ProductList = ({currentProducts}) => {
       <Row>
         {currentProducts.map(product => (
           <Col key={product.id} className="col-12 col-md-3 mb-4">
-            <Card className="bg-dark text-light">
+            <Card className="bg-dark text-light shadow">
               <CardImg
                 className="card_img" 
                 top 

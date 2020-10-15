@@ -5,7 +5,6 @@ const app = express();
 const items = require('./routes/api/items');
 const users = require('./routes/api/users');
 const keys = require('./config/keys');
-const stripe = require('stripe')(keys.stripeSecretKey);
 
 // body parser middleware
 app.use(bodyParser.json());
