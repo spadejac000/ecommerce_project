@@ -9,8 +9,8 @@ const passport = require('passport');
 const initializePassport = require('../../passport-config');
 initializePassport(
   passport, 
-  email => users.find(user => user.email === email),
-  id => users.find(user => user.id === id)
+  email => User.find(user => user.email === email),
+  id => User.find(user => user._id === id)
 )
 const flash = require('express-flash')
 const session = require('express-session')
@@ -18,7 +18,7 @@ const session = require('express-session')
 // User model
 const User = require('../../models/User');
 
-const users = []
+// const users = []
 
 router.use(flash())
 router.use(session({
@@ -35,13 +35,26 @@ router.use(passport.session())
 //   .then(users => res.json(users))
 // })
 
+router.get('/users', (req, res) => {
+  User.find()
+  .sort({date: -1})
+  .then(users => res.json(users))
+})
+
 // get the user info after login
-router.get('/', (req, res) => {
+router.get('/', checkAuthenticated, (req, res) => {
+  // User.find()
+  // .sort({date: -1})
+  // .then(users => res.json(users))
   res.send({name: req.user.name})
 })
 
+router.get('/login', checkNotAuthenticted, (req, res) => {
+  res.json({message: 'this is the login page'})
+})
+
 // post route for a user logging in their account
-router.post('/login', passport.authenticate('local', {
+router.post('/login', checkNotAuthenticted, passport.authenticate('local', {
 
 }), (req, res) => {
   try {
@@ -54,35 +67,60 @@ router.post('/login', passport.authenticate('local', {
 }
 );
 
+router.get('/register', checkNotAuthenticted, (req, res) => {
+  res.json({message: 'this is the register page'})
+})
+
 // post route when a user registers for an account
-router.post('/register', async (req, res) => {
+router.post('/register', checkNotAuthenticted, async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    users.push({
-      id: Date.now().toString(),
-      name: req.body.name,
-      email: req.body.email,
-      password: hashedPassword
+    User.findOne({email: req.body.email}, async (err, doc) => {
+      if (err) throw err;
+      if (doc) res.send("User already exists");
+      if (!doc) {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10)
+        const newUser = new User({
+          // id: Date.now().toString(),
+          name: req.body.name,
+          email: req.body.email,
+          password: hashedPassword
+        });
+        await newUser.save();
+        res.json({redirect: '/login'})
+      }
     })
-    res.json({redirect: '/login'})
-  } catch {
+  } 
+  catch {
     res.json({redirect: '/register'})
   }
-  console.log(users)
 })
 
 // when a user wants to log out
 router.delete('/logout', (req, res) => {
-  console.log('i recieved a log out request!!!!')
   req.logOut();
   res.json({redirect: '/login'})
 })
 
-// function checkAuthenticated(req, res, next) {
-//   if(req.isAuthenticated()) {
-//     return next()
-//   }
-//   res.json({redirect: '/login'})
-// }
+//route DELETE api/users
+// Delete all users
+router.delete('/', (req, res) => {
+  console.log('i recieved a delete ALL request!!!')
+  User.deleteMany({}, (err) => console.log(err))
+})
+
+function checkAuthenticated(req, res, next) {
+  if(req.isAuthenticated()) {
+    return next()
+  } else {
+    res.json({loggedIn: false})
+  }
+}
+
+function checkNotAuthenticted(req, res, next) {
+  if(req.isAuthenticated()) {
+    return res.json({loggedIn: true})
+  }
+  next()
+}
 
 module.exports = router;

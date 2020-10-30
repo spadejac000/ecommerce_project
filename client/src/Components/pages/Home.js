@@ -2,7 +2,6 @@ import React, {useState, useContext, useEffect} from 'react';
 import ProductList from '../ProductList';
 import Pagination from '../Pagination';
 import {ProductContext} from '../../ProductContext';
-import {Form} from 'reactstrap';
 import axios from 'axios'
 
 const Home = () => {
@@ -23,13 +22,15 @@ const Home = () => {
   useEffect(() => {
     axios.get('/api/users').then((res) => {
       setData(res.data)
+      if (res.data.loggedIn === false) {
+        window.location.href = `${window.location.href}login`
+      }
     })
   }, [])
 
-
   return (
     <div>
-      <h1>Hi {data.name}</h1>
+      {/* <h1>Hi {data.name}</h1> */}
       <ProductList currentProducts={currentProducts}/>
       <Pagination productsPerPage={productsPerPage} totalProducts={products.length} paginate={paginate}/>
     </div>

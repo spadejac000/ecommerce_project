@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import axios from 'axios';
 import FlashMessage from 'react-flash-message';
@@ -12,6 +12,15 @@ const Login = () => {
       [e.target.name]: e.target.value 
     })
   }
+
+  // prevents a logged in user from accessing login page
+  useEffect(() => {
+    axios.get('/api/users/login').then((res) => {
+      if (res.data.loggedIn === true) {
+        window.location.href = '/'
+      }
+    })
+  }, [])
 
   const login = (e) => {
     e.preventDefault()

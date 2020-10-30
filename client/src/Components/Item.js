@@ -31,6 +31,13 @@ const Item = (props) => {
   const itemId = props.match.params.id;
   const [products] = useContext(ProductContext);
 
+  // code to and add an increment value to navbar shopping cart
+  const [navCartValue, setNavCartValue] = useState(0)
+
+  const handleIncrement = () => {
+    setNavCartValue(navCartValue + 1)
+  }
+
   const addToCart = () => {
 
     let theName = '';
@@ -67,6 +74,9 @@ const Item = (props) => {
   // retieve item information from context based on itemId
   return(
     <div>
+      <div>
+        <h1>{navCartValue}</h1>
+      </div>
       <Fade in={fadeIn} tag="h5" className="mt-3">
         <Alert color="success" isOpen={visible} toggle={onDismiss}>
           Item added to cart
@@ -85,7 +95,7 @@ const Item = (props) => {
                 <Card body inverse color="dark">
                   <CardTitle className="text-warning"><strong>${product.price}</strong></CardTitle>
                   <CardText>Purchase within 24 hours to recieve a rebate...No refunds</CardText>
-                  <Button color="secondary" onClick={addToCart}><FontAwesomeIcon icon={faShoppingCart}/> Add To Cart</Button>
+                  <Button color="secondary" onClick={handleIncrement}><FontAwesomeIcon icon={faShoppingCart}/> Add To Cart</Button>
                 </Card>
               </Col>
             </Row>

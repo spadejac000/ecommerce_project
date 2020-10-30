@@ -7,7 +7,7 @@ import Login from './Components/pages/Login';
 import Register from './Components/pages/Register';
 import NavBar from './Components/NavBar';
 import {ProductProvider} from './ProductContext';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import Checkout from './Components/pages/Checkout';
 import Success from './Components/pages/Success';
 import Item from './Components/Item';
