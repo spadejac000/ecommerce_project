@@ -1,5 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {ProductContext} from '../ProductContext';
+import {InCartNumContext} from '../InCartNumContext';
 import { Row, Col, Card, CardText,
   CardTitle, Button, Alert, Fade } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -30,15 +31,18 @@ const Item = (props) => {
 
   const itemId = props.match.params.id;
   const [products] = useContext(ProductContext);
+  const [productsInCart, setProductsInCart] = useContext(InCartNumContext);
 
   // code to and add an increment value to navbar shopping cart
   const [navCartValue, setNavCartValue] = useState(0)
 
-  const handleIncrement = () => {
-    setNavCartValue(navCartValue + 1)
-  }
+  // const handleIncrement = () => {
+  //   setNavCartValue(navCartValue + 1)
+  //   setProductsInCart(productsInCart + 1)
+  // }
 
   const addToCart = () => {
+    setProductsInCart(productsInCart + 1)
 
     let theName = '';
     let thePrice = '';
@@ -65,18 +69,17 @@ const Item = (props) => {
 
     axios.post('/api/items', data).then(res => {
       console.log(res.data)
+      // setProductsInCart(productsInCart + 1)
     })
     
     setFadeIn(true)
+    console.log('the length: ', productsInCart.length, ' the items: ', productsInCart)
   }
   
 
   // retieve item information from context based on itemId
   return(
     <div>
-      <div>
-        <h1>{navCartValue}</h1>
-      </div>
       <Fade in={fadeIn} tag="h5" className="mt-3">
         <Alert color="success" isOpen={visible} toggle={onDismiss}>
           Item added to cart
@@ -95,7 +98,7 @@ const Item = (props) => {
                 <Card body inverse color="dark">
                   <CardTitle className="text-warning"><strong>${product.price}</strong></CardTitle>
                   <CardText>Purchase within 24 hours to recieve a rebate...No refunds</CardText>
-                  <Button color="secondary" onClick={handleIncrement}><FontAwesomeIcon icon={faShoppingCart}/> Add To Cart</Button>
+                  <Button color="secondary" onClick={addToCart}><FontAwesomeIcon icon={faShoppingCart}/> Add To Cart</Button>
                 </Card>
               </Col>
             </Row>

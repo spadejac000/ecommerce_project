@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Collapse,
   Navbar,
@@ -11,22 +11,25 @@ import {
   DropdownMenu,
   DropdownToggle,
   DropdownItem,
-  Form
+  Form,
+  Badge
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import {Link} from 'react-router-dom';
-import axios from 'axios'
+import axios from 'axios';
+import {InCartNumContext} from '../InCartNumContext';
 
-const NavBar = (props) => {
-  const [products, setProducts] = useState([])
-  const [loggedIn, setLoggedIn] = useState(false)
+const NavBar = () => {
+  const [productsInCart, setProductsInCart] = useContext(InCartNumContext);
+  // const [productsInCart, setProductsInCart] = useState([])
+  const [loggedIn, setLoggedIn] = useState(true)
   const [data, setData] = useState('')
 
   useEffect(() => {
       axios.get('api/items').then((res) => {
       // handle success
-      setProducts(res.data)
+      setProductsInCart(res.data.length)
+      console.log('wat da hal es des?: ', productsInCart)
       let afterLastSlashUrl = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
       if(afterLastSlashUrl === 'login' || afterLastSlashUrl === 'register') {
         setLoggedIn(false)
@@ -75,7 +78,7 @@ const NavBar = (props) => {
               <NavLink href="/">Home</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/cart"><FontAwesomeIcon size="lg" icon={faShoppingCart}/> ({products.length})</NavLink>
+              <NavLink href="/cart"><FontAwesomeIcon size="lg" icon={faShoppingCart}/>  <Badge color="danger">{productsInCart}</Badge></NavLink>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>

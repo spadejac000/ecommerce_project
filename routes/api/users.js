@@ -18,8 +18,6 @@ const session = require('express-session')
 // User model
 const User = require('../../models/User');
 
-// const users = []
-
 router.use(flash())
 router.use(session({
   secret: process.env.SESSION_SECRET,
@@ -29,12 +27,6 @@ router.use(session({
 router.use(passport.initialize())
 router.use(passport.session())
 
-// router.get('/', (req, res) => {
-//   User.find()
-//   .sort({date: -1})
-//   .then(users => res.json(users))
-// })
-
 router.get('/users', (req, res) => {
   User.find()
   .sort({date: -1})
@@ -42,10 +34,9 @@ router.get('/users', (req, res) => {
 })
 
 // get the user info after login
-router.get('/', checkAuthenticated, (req, res) => {
-  // User.find()
-  // .sort({date: -1})
-  // .then(users => res.json(users))
+router.get('/', 
+// checkAuthenticated, 
+(req, res) => {
   res.send({name: req.user.name})
 })
 

@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import StripeCheckout from 'react-stripe-checkout';
 import {ListGroup, ListGroupItem, Row, Col, Button} from 'reactstrap';
+import {InCartNumContext} from '../InCartNumContext';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +9,7 @@ import {Link} from 'react-router-dom';
 
 const Cart = () => {
   const [products, setProducts] = useState([])
+  const [productsInCart, setProductsInCart] = useContext(InCartNumContext);
 
   useEffect(() => {
       axios.get('api/items').then((res) => {
@@ -42,6 +44,7 @@ const Cart = () => {
   // delete item from database function
   const deleteProduct = (productId) => {
     axios.delete(`api/items/${productId}`).then(response => {
+      setProductsInCart(productsInCart - 1)
       const cartList = products.filter(product => product._id !== productId);
       setProducts(cartList);
     });
