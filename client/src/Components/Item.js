@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {ProductContext} from '../ProductContext';
 import {InCartNumContext} from '../InCartNumContext';
 import { Row, Col, Card, CardText,
@@ -32,14 +32,13 @@ const Item = (props) => {
   const itemId = props.match.params.id;
   const [products] = useContext(ProductContext);
   const [productsInCart, setProductsInCart] = useContext(InCartNumContext);
+  let theUserId = '';
 
-  // code to and add an increment value to navbar shopping cart
-  const [navCartValue, setNavCartValue] = useState(0)
-
-  // const handleIncrement = () => {
-  //   setNavCartValue(navCartValue + 1)
-  //   setProductsInCart(productsInCart + 1)
-  // }
+  useEffect(() => {
+    axios.get('/api/users').then((res) => {
+      theUserId = res.data.id;
+    })
+  }, [])
 
   const addToCart = () => {
     setProductsInCart(productsInCart + 1)
@@ -65,15 +64,14 @@ const Item = (props) => {
     let name = theName
     let price = thePrice
     let image = theImage
-    let data = {name, price, image}
+    let data = {name, price, image, theUserId}
 
-    axios.post('/api/items', data).then(res => {
+    axios.post('/api/cart', data).then(res => {
       console.log(res.data)
       // setProductsInCart(productsInCart + 1)
     })
     
     setFadeIn(true)
-    console.log('the length: ', productsInCart.length, ' the items: ', productsInCart)
   }
   
 

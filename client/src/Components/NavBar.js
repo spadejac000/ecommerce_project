@@ -26,10 +26,20 @@ const NavBar = () => {
   const [data, setData] = useState('')
 
   useEffect(() => {
-      axios.get('api/items').then((res) => {
+      axios.get('api/cart').then((res) => {
       // handle success
-      setProductsInCart(res.data.length)
-      console.log('wat da hal es des?: ', productsInCart)
+      axios.get('/api/users').then((response) => {
+        setData(response.data)
+        for(let i = 0; i < res.data.length; i++) {
+          console.log('the freaking response data: ', response.data, res.data)
+          if(res.data[i].userId === response.data.id) {
+            console.log('working...')
+            setProductsInCart(res.data[0].products.length)
+            console.log('working 2: ', productsInCart)
+          }
+        }
+      })
+      // setProductsInCart(res.data[0].products.length)
       let afterLastSlashUrl = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
       if(afterLastSlashUrl === 'login' || afterLastSlashUrl === 'register') {
         setLoggedIn(false)
@@ -37,9 +47,9 @@ const NavBar = () => {
         setLoggedIn(true)
       }
 
-      axios.get('/api/users').then((res) => {
-        setData(res.data)
-      })
+      // axios.get('/api/users').then((response) => {
+      //   setData(response.data)
+      // })
     })
   }, []);
 

@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const app = express();
 const items = require('./routes/api/items');
 const users = require('./routes/api/users');
+const cart = require('./routes/api/cart');
 const keys = require('./config/keys');
 
 // body parser middleware
@@ -12,6 +13,7 @@ app.use(bodyParser.json());
 //use routes
 app.use('/api/items', items)
 app.use('/api/users', users)
+app.use('/api/cart', cart)
 
 const port = process.env.PORT || 5000;
 

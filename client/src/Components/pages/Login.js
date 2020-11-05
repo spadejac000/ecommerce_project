@@ -9,9 +9,12 @@ const Login = () => {
   const changeHandler = (e) => {
     setUserLogin({
       ...userLogin,
-      [e.target.name]: e.target.value 
+      [e.target.name]: e.target.value,
+      theLoggedInUserId: theLoggedInUserId 
     })
   }
+
+  let theLoggedInUserId = '';
 
   // prevents a logged in user from accessing login page
   useEffect(() => {
@@ -19,6 +22,10 @@ const Login = () => {
       if (res.data.loggedIn === true) {
         window.location.href = '/'
       }
+    })
+
+    axios.get('/api/users').then((res) => {
+      theLoggedInUserId = res.data.id;
     })
   }, [])
 

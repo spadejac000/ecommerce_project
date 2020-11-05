@@ -20,12 +20,18 @@ const Home = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   useEffect(() => {
-    axios.get('/api/users').then((res) => {
+    axios.get('/api/users/').then((res) => {
       setData(res.data)
+      let myId = res.data.id;
+      console.log('here is the stupid id: ', {id:myId})
+      axios.post('/api/cart/userid', {id:myId}).then(response => {
+        console.log('the session now has a stored user id: ', response)
+      })
       if (res.data.loggedIn === false) {
         window.location.href = `${window.location.href}login`
       }
     })
+
   }, [])
 
   return (
