@@ -30,54 +30,53 @@ router.post('/', (req, res) => {
 })
 
 // POST route for handling stripe checkout
-router.post('/checkout', async (req, res) => {
-  console.log("request PRODUCT: ", req.body.product);
+// router.post('/', async (req, res) => {
 
-  let error;
-  let status;
-  try {
-    const {token} = req.body;
+//   let error;
+//   let status;
+//   try {
+//     const {token} = req.body;
 
-    const customer = await
-    stripe.customers.create({
-      email: token.email,
-      source: token.id
-    });
+//     const customer = await
+//     stripe.customers.create({
+//       email: token.email,
+//       source: token.id
+//     });
 
-    const idempotency_key = uuidv4();
-    const charge = await stripe.charges.create(
-      {
-        amount: 2500,
-        currency: "usd",
-        customer: customer.id,
-        receipt_email: token.email,
-        description: `Purchased the dishwasher`,
-        shipping: {
-          name: token.card.name,
-          address: {
-            line1: token.card.address_line1,
-            line2: token.card.address_line2,
-            city: token.card.address_city,
-            country: token.card.address_country,
-            postal_code: token.card.address_zip
-          }
-        }
-      },
-      {
-        idempotency_key
-      }
-    );
-    console.log("charge: ", {charge});
-    status = "success";
-  } catch (error) {
-    console.error("error: ", error);
-    status = "failure";
-  }
-  res.json({
-    redirect: '/success'
-    ,error, 
-    status})
-})
+//     const idempotency_key = uuidv4();
+//     const charge = await stripe.charges.create(
+//       {
+//         amount: 2500,
+//         currency: "usd",
+//         customer: customer.id,
+//         receipt_email: token.email,
+//         description: `Purchased the dishwasher`,
+//         shipping: {
+//           name: token.card.name,
+//           address: {
+//             line1: token.card.address_line1,
+//             line2: token.card.address_line2,
+//             city: token.card.address_city,
+//             country: token.card.address_country,
+//             postal_code: token.card.address_zip
+//           }
+//         }
+//       },
+//       {
+//         idempotency_key
+//       }
+//     );
+//     console.log("charge: ", {charge});
+//     status = "success";
+//   } catch (error) {
+//     console.error("error: ", error);
+//     status = "failure";
+//   }
+//   res.json({
+//     redirect: '/success'
+//     ,error, 
+//     status})
+// })
 
 //route DELETE api/items/:id
 // Delete an item

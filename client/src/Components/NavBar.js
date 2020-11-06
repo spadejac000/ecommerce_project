@@ -1,18 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownMenu,
-  DropdownToggle,
-  DropdownItem,
-  Form,
-  Badge
+  Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem, Form, Badge
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
@@ -26,30 +14,21 @@ const NavBar = () => {
   const [data, setData] = useState('')
 
   useEffect(() => {
-      axios.get('api/cart').then((res) => {
-      // handle success
+    axios.get('api/cart').then((res) => {
       axios.get('/api/users').then((response) => {
         setData(response.data)
-        for(let i = 0; i < res.data.length; i++) {
-          console.log('the freaking response data: ', response.data, res.data)
-          if(res.data[i].userId === response.data.id) {
-            console.log('working...')
-            setProductsInCart(res.data[0].products.length)
-            console.log('working 2: ', productsInCart)
+        for(let i = 0; i < res.data.carts.length; i++) {
+          if(response.data.id === res.data.carts[i].userId) {
+            setProductsInCart(res.data.carts[i].products.length)
           }
         }
       })
-      // setProductsInCart(res.data[0].products.length)
       let afterLastSlashUrl = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
       if(afterLastSlashUrl === 'login' || afterLastSlashUrl === 'register') {
         setLoggedIn(false)
       } else {
         setLoggedIn(true)
       }
-
-      // axios.get('/api/users').then((response) => {
-      //   setData(response.data)
-      // })
     })
   }, []);
 

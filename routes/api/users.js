@@ -44,7 +44,6 @@ router.get('/login', checkNotAuthenticted, (req, res) => {
 
 // post route for a user logging in their account
 router.post('/login', checkNotAuthenticted, passport.authenticate('local', {}), (req, res) => {
-  console.log('I just logged in and here is my Id: ', req)
   try {
     res.json({redirect: '/'})
   } catch (error) {

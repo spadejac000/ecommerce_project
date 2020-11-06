@@ -9,44 +9,28 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router-dom';
 
 const Cart = () => {
-  const [cart, setCart] = useState([]);
-  const [cartId, setCartId] = useState('');
+  const [products, setProducts] = useState([])
   const [productsInCart, setProductsInCart] = useContext(InCartNumContext);
 
-
   useEffect(() => {
-    axios.get('api/cart').then(res => {
-      console.log(res.data.userId)
-      console.log(res.data.carts)
-      for(let i = 0; i < res.data.carts.length; i++) {
-        if(res.data.userId === res.data.carts[i].userId) {
-          setCart(res.data.carts[i].products)
-          setCartId(res.data.carts[i]._id)
-        }
-      }
+      axios.get('api/items').then((res) => {
+      // handle success
+      setProducts(res.data)
+      console.log('the products: ', products)
     })
   }, []);
 
   // remove all items from cart after purchase
-  const clearCart = (id) => {
-    axios.delete(`/api/cart/cartcontent/hello/${id}`).then(response => {
-      console.log('here is the cart: ', response.data)
+  const clearCart = () => {
+    axios.delete(`api/items/`).then(response => {
       const cartList = []
-      setCart(cartList);
-    });
-  }
-
-  const deleteCartItems = (id) => {
-    console.log('the id: ', id)
-    console.log('hello delete method')
-    axios.delete(`/api/cart/cartcontent/hello/${id}`).then(response => {
-      console.log('here is the delete method response: ', response.data)
+      setProducts(cartList);
     });
   }
 
   // handles stripe token
   const handleToken = async (token) => {
-    const response = await axios.post('/api/cart/checkout', {
+    const response = await axios.post('/api/items/checkout', {
       token
     });
     const {status} = response.data
@@ -55,29 +39,30 @@ const Cart = () => {
       clearCart()
       window.location.href = response.data.redirect
     } else {
-      console.log('this did not work', response.data)
+      console.log('poooop. this did not work')
     }
   }
 
   // delete item from database function
   const deleteProduct = (productId) => {
-    axios.delete(`api/cart/${productId}`).then(response => {
+    axios.delete(`api/items/${productId}`).then(response => {
       setProductsInCart(productsInCart - 1)
-      const cartList = cart.filter(product => product._id !== productId);
-      setCart(cartList);
+      const cartList = products.filter(product => product._id !== productId);
+      setProducts(cartList);
     });
   }
 
   // adding all the price of the items in the shopping cart together
   let total = 0
   const totalPrice = () => {
-    for(let i = 0; i < cart.length; i++) {
-      total = parseFloat(total) + parseFloat(cart[i].price)
+    
+    for(let i = 0; i < products.length; i++) {
+      total = parseFloat(total) + parseFloat(products[i].price)
     }
     return total.toFixed(2)
   }
  
-  if(cart.length === 0) {
+  if(products.length === 0) {
     return(
       <div>
         <h1>Cart is empty</h1>
@@ -90,7 +75,7 @@ const Cart = () => {
       <Row>
         <Col className="col-12 col-md-9">
         <ListGroup className="pb-5">
-          {cart.map(({name, price, image, _id}) => (
+          {products.map(({name, price, image, _id}) => (
             <ListGroupItem className="bg-dark text-white" key={_id}>
               <Row>
                 <Col className="col-12 col-md-2">
@@ -112,13 +97,13 @@ const Cart = () => {
         </ListGroup>
         <hr className="bg-light"/>
         <p className="text-right">
-          Total ({cart.length} items): ${totalPrice()}
+          Total ({products.length} items): ${totalPrice()}
         </p>
         </Col>
         <Col className="col-12 col-md-3">
           <div className="card bg-dark p-3">
           <p>
-            Total ({cart.length} items): ${total}
+            Total ({products.length} items): ${totalPrice()}
           </p>
           <StripeCheckout
             stripeKey="pk_test_SDgPMwlzPSK2Fo1LNTcCKhYr00pduFRDkx"
@@ -128,9 +113,6 @@ const Cart = () => {
             amount={total * 100}
             name="Products"
           />
-          <button onClick={() => {deleteCartItems(cartId)}}>
-            delete all
-          </button>
           </div>
         </Col>
       </Row>
