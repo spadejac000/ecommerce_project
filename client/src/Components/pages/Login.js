@@ -47,9 +47,8 @@ const Login = () => {
 
   return (
     <div>
-      <h1>Login</h1>
-      <Form className="card bg-dark p-5" onSubmit={login}>
-        {Message()}
+      <Form className="card bg-dark p-5 login-form" onSubmit={login}>
+        <h1 className='text-center'>Login</h1>
         <FormGroup>
           <Label for="email">Email</Label>
           <Input type="email" name="email" id="email" placeholder="Email" onChange={changeHandler}/>
@@ -58,9 +57,11 @@ const Login = () => {
           <Label for="password">Password</Label>
           <Input type="password" name="password" id="password" placeholder="Password" onChange={changeHandler}/>
         </FormGroup>
-        <Button type="submit">Login</Button>
+        <Button type="submit" className="mb-3">Login</Button>
+        <Label>Not registered yet?</Label>
+        <a className="btn btn-info" href="/register">Register</a>
       </Form>
-      <a className="btn btn-info mt-5" href="/register">Register</a>
+      
     </div>
   );
 }

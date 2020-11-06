@@ -33,8 +33,8 @@ const Register = () => {
 
   return (
     <div>
-      <h1>Register</h1>
-      <Form className="card bg-dark p-5" onSubmit={register}>
+      <Form className="card bg-dark p-5 register-form" onSubmit={register}>
+        <h1 className="text-center">Register</h1>
         <FormGroup>
           <Label for="name">Name</Label>
           <Input type="text" name="name" id="name" placeholder="Name" onChange={changeHandler}/>
@@ -47,9 +47,10 @@ const Register = () => {
           <Label for="password">Password</Label>
           <Input type="password" name="password" id="password" placeholder="Password" onChange={changeHandler}/>
         </FormGroup>
-        <Button type="submit">Register</Button>
+        <Button type="submit" className="mb-3">Register</Button>
+        <Label>Already a user?</Label>
+        <a className="btn btn-info" href="/login">Login</a>
       </Form>
-      <a className="btn btn-info mt-5" href="/login">Login</a>
     </div>
   );
 }

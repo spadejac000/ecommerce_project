@@ -24,7 +24,6 @@ router.post('/userid', (req, res) => {
 
 router.post("/", async (req, res) => {
   const { productId, quantity, name, price, image } = req.body;
-  console.log('the user: ', req.body.theUserId);
 
   // userId = req.body.theUserId; //TODO: the logged in user id
 

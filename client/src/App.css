@@ -1,3 +1,9 @@
 .container {
   min-height: 100vh; /* real browsers */
 }
+
+.login-form,
+.register-form {
+  width: 50%;
+  margin: auto;
+}
