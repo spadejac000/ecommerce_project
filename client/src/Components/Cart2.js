@@ -54,11 +54,8 @@ class Cart extends Component {
     // delete item from database function
     const deleteProduct = (productId) => {
       let theUserId = this.state.userId
-      console.log('here is the id for the back end: ', theUserId)
       axios.delete(`api/cart/${productId}`, {id: theUserId}).then(response => {
-        console.log('the context: ', this.context)
         this.context[0] = this.context[0] - 1
-        console.log('the context now: ', this.context[0])
         const cartList = this.state.cart.filter(product => product._id !== productId);
         this.setState({cart: cartList});
       });
