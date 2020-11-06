@@ -7,6 +7,7 @@ const items = require('./routes/api/items');
 const users = require('./routes/api/users');
 const cart = require('./routes/api/cart');
 const keys = require('./config/keys');
+const cool = require('cool-ascii-faces');
 
 // body parser middleware
 app.use(bodyParser.json());
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 app.use('/api/items', items)
 app.use('/api/users', users)
 app.use('/api/cart', cart)
+app.get('/cool', (req, res) => res.send(cool()))
 
 // serve static assets if in production
 if(process.env.NODE_ENV === 'production') {
