@@ -127,15 +127,12 @@ router.delete('/:id', async (req, res) => {
 //route DELETE api/cart
 // Delete all items in unique cart
 router.delete('/cartcontent/hello/:id', async (req, res) => {
-  console.log('i recieved a delete ALL items in unique cart request!!!')
   let cart = await Cart.findOne({ userId })
-  console.log('cart info: ', cart)
   cart.update({$pull: {products: {}}},
     function(err, data) {
       if (err) res.send(err)
       else res.send(data)
     })
-  // console.log('here is the updated cart: ', cart)
 })
 
 // route delete api/cart/everycart

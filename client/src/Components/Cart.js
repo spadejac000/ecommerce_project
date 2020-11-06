@@ -36,11 +36,13 @@ const Cart = () => {
     });
   }
 
-  const deleteCartItems = (id) => {
-    console.log('the id: ', id)
-    console.log('hello delete method')
+  // remove all items from cart before purchase
+  const deleteAllItemsInCart = (id) => {
     axios.delete(`/api/cart/cartcontent/hello/${id}`).then(response => {
-      console.log('here is the delete method response: ', response.data)
+      console.log('here is the cart: ', response.data)
+      const cartList = []
+      setCart(cartList);
+      setProductsInCart(0)
     });
   }
 
@@ -128,8 +130,8 @@ const Cart = () => {
             amount={total * 100}
             name="Products"
           />
-          <button onClick={() => {deleteCartItems(cartId)}}>
-            delete all
+          <button className="btn btn-danger mt-3" onClick={() => {deleteAllItemsInCart(cartId)}}>
+            Delete All Items
           </button>
           </div>
         </Col>
