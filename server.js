@@ -18,6 +18,10 @@ app.use('/api/users', users)
 app.use('/api/cart', cart)
 app.get('/cool', (req, res) => res.send(cool()))
 
+
+const buildPath = path.join(__dirname, '..', 'build');
+app.use(express.static(buildPath));
+
 // serve static assets if in production
 if(process.env.NODE_ENV === 'production') {
   // set static folder
