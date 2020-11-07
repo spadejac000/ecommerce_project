@@ -20,6 +20,9 @@ const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`server started on port ${port}`))
 
+let distDir = __dirname + "/dist/";
+app.use(express.static(distDir));
+
 //Static file declaration
 app.use(express.static(path.join(__dirname, 'client/build')));
 
