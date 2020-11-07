@@ -33,7 +33,7 @@ if(process.env.NODE_ENV === 'production') {
 }
 
 //build mode
-app.get('*', (req, res) => {  res.sendFile(path.join(__dirname+'/client/public/index.html/login'));})
+app.get('*', (req, res) => {  res.sendFile(path.join(__dirname+'/client/public/index.html'));})
 
 //db config
 const db = require('./config/keys').mongoURI
