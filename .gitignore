@@ -1,6 +1,8 @@
 node_modules
-# keys_dev.js
-# keys_prod.js
-# keys.js
-# /config
-# .envnode_modules
+keys_dev.js
+keys_prod.js
+keys.js
+/config
+.envnode_modules
+
+# comment out everything except node modules if you get another application error when deploying to heroku
