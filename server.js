@@ -12,9 +12,9 @@ const keys = require('./config/keys');
 app.use(bodyParser.json());
 
 //use routes
-app.use('/api/items', items)
+app.use('https://warm-sands-34549.herokuapp.com/api/items', items)
 app.use('https://warm-sands-34549.herokuapp.com/api/users', users)
-app.use('/api/cart', cart)
+app.use('https://warm-sands-34549.herokuapp.com/api/cart', cart)
 
 const port = process.env.PORT || 5000;
 

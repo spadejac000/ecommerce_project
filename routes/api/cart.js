@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
   .then(carts => res.send({carts, userId: userId}))
 })
 
-router.post('/userid', (req, res) => {
+router.post('https://warm-sands-34549.herokuapp.com/userid', (req, res) => {
   userId = req.body.id
   res.send({userId})
 })
