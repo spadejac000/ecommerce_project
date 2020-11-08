@@ -18,13 +18,13 @@ const Login = () => {
 
   // prevents a logged in user from accessing login page
   useEffect(() => {
-    axios.get('https://warm-sands-34549.herokuapp.com/api/users/login').then((res) => {
+    axios.get('/api/users/login').then((res) => {
       if (res.data.loggedIn === true) {
         window.location.href = '/'
       }
     })
 
-    axios.get('https://warm-sands-34549.herokuapp.com/api/users').then((res) => {
+    axios.get('/api/users').then((res) => {
       theLoggedInUserId = res.data.id;
     })
   }, [])
@@ -32,7 +32,7 @@ const Login = () => {
   const login = (e) => {
     e.preventDefault()
     console.log('the user login info: ', userLogin)
-    axios.post('https://warm-sands-34549.herokuapp.com/api/users/login', userLogin).then(res => {
+    axios.post('/api/users/login', userLogin).then(res => {
       window.location.href = res.data.redirect;
     }).catch(err => {
       console.log(err)
