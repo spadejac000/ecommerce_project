@@ -27,39 +27,39 @@ router.use(session({
 router.use(passport.initialize())
 router.use(passport.session())
 
-router.get('warm-sands-34549.herokuapp.com/users', (req, res) => {
+router.get('/users', (req, res) => {
   User.find()
   .sort({date: -1})
   .then(users => res.json(users))
 })
 
 // get the user info after login
-router.get('warm-sands-34549.herokuapp.com', checkAuthenticated, (req, res) => {
+router.get('/', checkAuthenticated, (req, res) => {
   res.send({name: req.user.name, id: req.user._id})
 })
 
-router.get('warm-sands-34549.herokuapp.com/login', checkNotAuthenticted, (req, res) => {
+router.get('/login', checkNotAuthenticted, (req, res) => {
   res.json({message: 'this is the login page'})
 })
 
 // post route for a user logging in their account
-router.post('warm-sands-34549.herokuapp.com/login', checkNotAuthenticted, passport.authenticate('local', {}), (req, res) => {
+router.post('/login', checkNotAuthenticted, passport.authenticate('local', {}), (req, res) => {
   try {
-    res.json({redirect: 'warm-sands-34549.herokuapp.com'})
+    res.json({redirect: '/'})
   } catch (error) {
     if(error) {
-      res.json({redirect: 'warm-sands-34549.herokuapp.com/login'})
+      res.json({redirect: '/login'})
     }
   }
 }
 );
 
-router.get('warm-sands-34549.herokuapp.com/register', checkNotAuthenticted, (req, res) => {
+router.get('/register', checkNotAuthenticted, (req, res) => {
   res.json({message: 'this is the register page'})
 })
 
 // post route when a user registers for an account
-router.post('warm-sands-34549.herokuapp.com/register', checkNotAuthenticted, async (req, res) => {
+router.post('/register', checkNotAuthenticted, async (req, res) => {
   try {
     User.findOne({email: req.body.email}, async (err, doc) => {
       if (err) throw err;
@@ -73,24 +73,24 @@ router.post('warm-sands-34549.herokuapp.com/register', checkNotAuthenticted, asy
           password: hashedPassword
         });
         await newUser.save();
-        res.json({redirect: 'warm-sands-34549.herokuapp.com/login'})
+        res.json({redirect: '/login'})
       }
     })
   } 
   catch {
-    res.json({redirect: 'warm-sands-34549.herokuapp.com/register'})
+    res.json({redirect: '/register'})
   }
 })
 
 // when a user wants to log out
-router.delete('warm-sands-34549.herokuapp.com/logout', (req, res) => {
+router.delete('/logout', (req, res) => {
   req.logOut();
-  res.json({redirect: 'warm-sands-34549.herokuapp.com/login'})
+  res.json({redirect: '/login'})
 })
 
 //route DELETE api/users
 // Delete all users
-router.delete('warm-sands-34549.herokuapp.com/', (req, res) => {
+router.delete('/', (req, res) => {
   console.log('i recieved a delete ALL request for all users!!!')
   User.deleteMany({}, (err) => console.log(err))
 })

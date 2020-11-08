@@ -11,18 +11,18 @@ const User = require('../../models/User');
 
 let userId = '';
 
-router.get("warm-sands-34549.herokuapp.com/", (req, res) => {
+router.get("/", (req, res) => {
   Cart.find()
   .sort({date: -1})
   .then(carts => res.send({carts, userId: userId}))
 })
 
-router.post('warm-sands-34549.herokuapp.com/userid', (req, res) => {
+router.post('/userid', (req, res) => {
   userId = req.body.id
   res.send({userId})
 })
 
-router.post("warm-sands-34549.herokuapp.com/", async (req, res) => {
+router.post("/", async (req, res) => {
   const { productId, quantity, name, price, image } = req.body;
 
   // userId = req.body.theUserId; //TODO: the logged in user id
@@ -60,7 +60,7 @@ router.post("warm-sands-34549.herokuapp.com/", async (req, res) => {
 });
 
 // POST route for handling stripe checkout
-router.post('warm-sands-34549.herokuapp.com/checkout', async (req, res) => {
+router.post('/checkout', async (req, res) => {
 
   let error;
   let status;
@@ -104,7 +104,7 @@ router.post('warm-sands-34549.herokuapp.com/checkout', async (req, res) => {
     status = "failure";
   }
   res.json({
-    redirect: 'warm-sands-34549.herokuapp.com/success',
+    redirect: '/success',
     error, 
     status})
 })
@@ -112,7 +112,7 @@ router.post('warm-sands-34549.herokuapp.com/checkout', async (req, res) => {
 //route DELETE api/cart/:id
 // Delete an item from cart
 // Public
-router.delete('warm-sands-34549.herokuapp.com/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   let cart = await Cart.findOne({ userId })
   console.log('the cart: ', cart)
 
@@ -125,7 +125,7 @@ router.delete('warm-sands-34549.herokuapp.com/:id', async (req, res) => {
 
 //route DELETE api/cart
 // Delete all items in unique cart
-router.delete('warm-sands-34549.herokuapp.com/cartcontent/hello/:id', async (req, res) => {
+router.delete('/cartcontent/hello/:id', async (req, res) => {
   let cart = await Cart.findOne({ userId })
   cart.update({$pull: {products: {}}},
     function(err, data) {
@@ -136,7 +136,7 @@ router.delete('warm-sands-34549.herokuapp.com/cartcontent/hello/:id', async (req
 
 // route delete api/cart/everycart
 // delete all carts in application
-router.delete('warm-sands-34549.herokuapp.com/everycart/hello', (req, res) => {
+router.delete('/everycart/hello', (req, res) => {
   Cart.deleteMany({}, (err) => console.log('all carts have been deleted'))
   console.log('every cart has been deleted')
 })

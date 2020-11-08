@@ -22,12 +22,12 @@ function App() {
             <NavBar/>
             <Container>
               <Switch>
-              <Route exact path="https://warm-sands-34549.herokuapp.com/" component={Home}/>
-              <Route exact path="https://warm-sands-34549.herokuapp.com/login" component={Login}/>
-              <Route exact path="https://warm-sands-34549.herokuapp.com/register" component={Register}/>
-              <Route exact path="https://warm-sands-34549.herokuapp.com/cart" component={Checkout}/>
-              <Route exact path="https://warm-sands-34549.herokuapp.com/item/:id" component={Item} />
-              <Route exact path="https://warm-sands-34549.herokuapp.com/success" component={Success} />
+              <Route exact path="/" component={Home}/>
+              <Route exact path="/login" component={Login}/>
+              <Route exact path="/register" component={Register}/>
+              <Route exact path="/cart" component={Checkout}/>
+              <Route exact path="/item/:id" component={Item} />
+              <Route exact path="/success" component={Success} />
               </Switch>
             </Container>
             <footer className="bg-dark p-2 text-center">
