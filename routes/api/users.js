@@ -34,7 +34,7 @@ router.get('/users', (req, res) => {
 })
 
 // get the user info after login
-router.get('/', checkAuthenticated, (req, res) => {
+router.get('https://warm-sands-34549.herokuapp.com/', checkAuthenticated, (req, res) => {
   res.send({name: req.user.name, id: req.user._id})
 })
 
@@ -45,10 +45,10 @@ router.get('/login', checkNotAuthenticted, (req, res) => {
 // post route for a user logging in their account
 router.post('/login', checkNotAuthenticted, passport.authenticate('local', {}), (req, res) => {
   try {
-    res.json({redirect: '/'})
+    res.json({redirect: 'https://warm-sands-34549.herokuapp.com/'})
   } catch (error) {
     if(error) {
-      res.json({redirect: '/login'})
+      res.json({redirect: 'https://warm-sands-34549.herokuapp.com/login'})
     }
   }
 }
