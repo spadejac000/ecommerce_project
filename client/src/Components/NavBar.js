@@ -13,8 +13,8 @@ const NavBar = () => {
   const [data, setData] = useState('')
 
   useEffect(() => {
-    axios.get('/api/cart').then((res) => {
-      axios.get('/api/users').then((response) => {
+    axios.get('https://warm-sands-34549.herokuapp.com/api/cart').then((res) => {
+      axios.get('https://warm-sands-34549.herokuapp.com/api/users').then((response) => {
         setData(response.data)
         for(let i = 0; i < res.data.carts.length; i++) {
           if(response.data.id === res.data.carts[i].userId) {
@@ -38,7 +38,7 @@ const NavBar = () => {
   // logging out
   const submitHandler = (e) => {
     e.preventDefault()
-    axios.delete('/api/users/logout').then(res => {
+    axios.delete('https://warm-sands-34549.herokuapp.com/api/users/logout').then(res => {
       console.log(res.data)
       window.location.href = res.data.redirect
       setLoggedIn(false)

@@ -44,8 +44,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://warm-sands-34549.herokuapp.com",
-  "secure": false,
   "devDependencies": {
     "@types/reactstrap": "^8.5.1"
   }

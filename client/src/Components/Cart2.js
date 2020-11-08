@@ -16,7 +16,7 @@ class Cart extends Component {
   static contextType = InCartNumContext;
 
   componentDidMount() {
-    axios.get('api/cart').then(res => {
+    axios.get('https://warm-sands-34549.herokuapp.com/api/cart').then(res => {
       console.log(res.data.userId)
       console.log(res.data.carts)
       for(let i = 0; i < res.data.carts.length; i++) {
@@ -30,7 +30,7 @@ class Cart extends Component {
   render() {
     // remove all items from cart after purchase
     const clearCart = () => {
-      axios.delete(`api/items/`).then(response => {
+      axios.delete(`https://warm-sands-34549.herokuapp.com/api/items/`).then(response => {
         const cartList = []
         this.setState({cart: cartList});
       });
@@ -54,7 +54,7 @@ class Cart extends Component {
     // delete item from database function
     const deleteProduct = (productId) => {
       let theUserId = this.state.userId
-      axios.delete(`api/cart/${productId}`, {id: theUserId}).then(response => {
+      axios.delete(`https://warm-sands-34549.herokuapp.com/api/cart/${productId}`, {id: theUserId}).then(response => {
         this.context[0] = this.context[0] - 1
         const cartList = this.state.cart.filter(product => product._id !== productId);
         this.setState({cart: cartList});
