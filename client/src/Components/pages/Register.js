@@ -14,7 +14,7 @@ const Register = () => {
 
   // prevents a logged in user from accessing register page
   useEffect(() => {
-    axios.get('https://warm-sands-34549.herokuapp.com/api/users/register').then((res) => {
+    axios.get('/api/users/register').then((res) => {
       if (res.data.loggedIn === true) {
         window.location.href = '/'
       }
@@ -23,7 +23,7 @@ const Register = () => {
 
   const register = (e) => {
     e.preventDefault()
-    axios.post('https://warm-sands-34549.herokuapp.com/api/users/register', userInfo).then(res => {
+    axios.post('/api/users/register', userInfo).then(res => {
       console.log(res.data)
       window.location.href = res.data.redirect;
     }).catch(err => {

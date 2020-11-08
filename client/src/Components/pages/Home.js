@@ -20,11 +20,11 @@ const Home = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   useEffect(() => {
-    axios.get('https://warm-sands-34549.herokuapp.com/api/users').then((res) => {
+    axios.get('/api/users').then((res) => {
       setData(res.data)
       let myId = res.data.id;
       console.log('loggin status: ', res.data)
-      axios.post('https://warm-sands-34549.herokuapp.com/api/cart/userid', {id:myId}).then(response => {
+      axios.post('/api/cart/userid', {id:myId}).then(response => {
         console.log(response)
       })
       if (res.data.loggedIn === false) {

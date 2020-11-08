@@ -15,7 +15,7 @@ const Cart = () => {
 
 
   useEffect(() => {
-    axios.get('https://warm-sands-34549.herokuapp.com/api/cart').then(res => {
+    axios.get('/api/cart').then(res => {
       console.log(res.data.userId)
       console.log(res.data.carts)
       for(let i = 0; i < res.data.carts.length; i++) {
@@ -29,7 +29,7 @@ const Cart = () => {
 
   // remove all items from cart after purchase
   const clearCart = (id) => {
-    axios.delete(`https://warm-sands-34549.herokuapp.com/api/cart/cartcontent/hello/${id}`).then(response => {
+    axios.delete(`/api/cart/cartcontent/hello/${id}`).then(response => {
       console.log('here is the cart: ', response.data)
       const cartList = []
       setCart(cartList);
@@ -38,7 +38,7 @@ const Cart = () => {
 
   // remove all items from cart before purchase
   const deleteAllItemsInCart = (id) => {
-    axios.delete(`https://warm-sands-34549.herokuapp.com/api/cart/cartcontent/hello/${id}`).then(response => {
+    axios.delete(`/api/cart/cartcontent/hello/${id}`).then(response => {
       console.log('here is the cart: ', response.data)
       const cartList = []
       setCart(cartList);
@@ -48,7 +48,7 @@ const Cart = () => {
 
   // handles stripe token
   const handleToken = async (token) => {
-    const response = await axios.post('https://warm-sands-34549.herokuapp.com/api/cart/checkout', {
+    const response = await axios.post('/api/cart/checkout', {
       token
     });
     const {status} = response.data
@@ -63,7 +63,7 @@ const Cart = () => {
 
   // delete item from database function
   const deleteProduct = (productId) => {
-    axios.delete(`https://warm-sands-34549.herokuapp.com/api/cart/${productId}`).then(response => {
+    axios.delete(`/api/cart/${productId}`).then(response => {
       setProductsInCart(productsInCart - 1)
       const cartList = cart.filter(product => product._id !== productId);
       setCart(cartList);
