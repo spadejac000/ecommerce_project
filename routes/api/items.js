@@ -3,6 +3,8 @@ const router = express.Router();
 const keys = require('../../config/keys');
 const stripe = require('stripe')(keys.stripeSecretKey);
 const { v4: uuidv4 } = require('uuid');
+const cors = require('cors')
+router.use(cors());
 
 //item model
 const Item = require('../../models/Item');

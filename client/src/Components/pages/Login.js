@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import axios from 'axios';
-import FlashMessage from 'react-flash-message';
+// import FlashMessage from 'react-flash-message';
 
 const Login = () => {
   const [userLogin, setUserLogin] = useState({email: '', password: ''})
@@ -18,31 +18,32 @@ const Login = () => {
 
   // prevents a logged in user from accessing login page
   useEffect(() => {
-    axios.get('/api/users/login').then((res) => {
+    axios.get('http://localhost:5000/api/users/login').then((res) => {
       if (res.data.loggedIn === true) {
         window.location.href = '/'
       }
     })
 
-    axios.get('/api/users').then((res) => {
+    axios.get('http://localhost:5000/api/users').then((res) => {
       theLoggedInUserId = res.data.id;
     })
   }, [])
 
   const login = (e) => {
     e.preventDefault()
-    axios.post('/api/users/login', userLogin).then(res => {
+    console.log('the user login info: ', userLogin)
+    axios.post('http://localhost:5000/api/users/login', userLogin).then(res => {
       window.location.href = res.data.redirect;
     }).catch(err => {
       console.log(err)
     })
   }
 
-  const Message = () => (
-    <FlashMessage duration={5000}>
-      <strong>I will disapper in 5 seconds!</strong>
-    </FlashMessage>
-  )
+  // const Message = () => (
+  //   <FlashMessage duration={5000}>
+  //     <strong>I will disapper in 5 seconds!</strong>
+  //   </FlashMessage>
+  // )
 
   return (
     <div>

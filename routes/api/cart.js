@@ -3,6 +3,8 @@ const router = express.Router();
 const keys = require('../../config/keys');
 const stripe = require('stripe')(keys.stripeSecretKey);
 const { v4: uuidv4 } = require('uuid');
+const cors = require('cors')
+router.use(cors());
 
 //cart model
 const Cart = require('../../models/Cart');
@@ -17,7 +19,7 @@ router.get("/", (req, res) => {
   .then(carts => res.send({carts, userId: userId}))
 })
 
-router.post('https://warm-sands-34549.herokuapp.com/userid', (req, res) => {
+router.post('/userid', (req, res) => {
   userId = req.body.id
   res.send({userId})
 })

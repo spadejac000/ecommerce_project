@@ -35,7 +35,7 @@ const Item = (props) => {
   let theUserId = '';
 
   useEffect(() => {
-    axios.get('/api/users').then((res) => {
+    axios.get('http://localhost:5000/api/users').then((res) => {
       theUserId = res.data.id;
     })
   }, [])
@@ -66,7 +66,7 @@ const Item = (props) => {
     let image = theImage
     let data = {name, price, image, theUserId}
 
-    axios.post('/api/cart', data).then(res => {
+    axios.post('http://localhost:5000/api/cart', data).then(res => {
       console.log(res.data)
       // setProductsInCart(productsInCart + 1)
     })

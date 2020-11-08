@@ -7,14 +7,17 @@ const items = require('./routes/api/items');
 const users = require('./routes/api/users');
 const cart = require('./routes/api/cart');
 const keys = require('./config/keys');
+const cors = require('cors')
+
+app.use(cors());
 
 // body parser middleware
 app.use(bodyParser.json());
 
 //use routes
-app.use('https://warm-sands-34549.herokuapp.com/api/items', items)
-app.use('https://warm-sands-34549.herokuapp.com/api/users', users)
-app.use('https://warm-sands-34549.herokuapp.com/api/cart', cart)
+app.use('/api/items', items)
+app.use('/api/users', users)
+app.use('/api/cart', cart)
 
 const port = process.env.PORT || 5000;
 

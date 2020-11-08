@@ -9,13 +9,12 @@ import {InCartNumContext} from '../InCartNumContext';
 
 const NavBar = () => {
   const [productsInCart, setProductsInCart] = useContext(InCartNumContext);
-  // const [productsInCart, setProductsInCart] = useState([])
   const [loggedIn, setLoggedIn] = useState(true)
   const [data, setData] = useState('')
 
   useEffect(() => {
-    axios.get('api/cart').then((res) => {
-      axios.get('/api/users').then((response) => {
+    axios.get('http://localhost:5000/api/cart').then((res) => {
+      axios.get('http://localhost:5000/api/users').then((response) => {
         setData(response.data)
         for(let i = 0; i < res.data.carts.length; i++) {
           if(response.data.id === res.data.carts[i].userId) {
@@ -39,7 +38,7 @@ const NavBar = () => {
   // logging out
   const submitHandler = (e) => {
     e.preventDefault()
-    axios.delete('/api/users/logout').then(res => {
+    axios.delete('http://localhost:5000/api/users/logout').then(res => {
       console.log(res.data)
       window.location.href = res.data.redirect
       setLoggedIn(false)
