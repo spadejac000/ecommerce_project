@@ -20,14 +20,14 @@ const Home = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   useEffect(() => {
-    axios.get('/api/users').then((res) => {
+    axios.get('/').then((res) => {
       setData(res.data)
       let myId = res.data.id;
       console.log('loggin status: ', res.data)
       axios.post('/api/cart/userid', {id:myId}).then(response => {
         console.log(response)
       })
-      if (res.data.loggedIn === false) {
+      if (res.data.loggedIn !== true) {
         window.location.href = `${window.location.href}login`
       }
     })

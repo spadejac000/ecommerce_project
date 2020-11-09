@@ -1,6 +1,6 @@
-// if(process.env.NODE_ENV !== 'production') {
-//   require('dotenv').config()
-// }
+if(process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 
 const express = require('express');
 const router = express.Router();
@@ -33,7 +33,7 @@ router.get('/users', (req, res) => {
   .then(users => res.json(users))
 })
 
-// get the user info after login
+// // get the user info after login
 router.get('/', checkAuthenticated, (req, res) => {
   console.log('hello request: ', req.user)
   res.send({name: req.user.name, id: req.user._id})
