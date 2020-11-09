@@ -19,8 +19,9 @@ router.use(session({
   resave: false,
   saveUninitialized: false
 }))
-router.use(passport.initialize())
 router.use(passport.session())
+router.use(passport.initialize())
+
 
 const initializePassport = require('../../passport-config');
 initializePassport(
