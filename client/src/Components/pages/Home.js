@@ -20,7 +20,7 @@ const Home = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   useEffect(() => {
-    axios.get('/').then((res) => {
+    axios.get('/api/users').then((res) => {
       setData(res.data)
       let myId = res.data.id;
       console.log('loggin status: ', res.data)
