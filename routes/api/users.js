@@ -24,13 +24,9 @@ router.use(session({
   secret: "SECRET",
   resave: false,
   saveUninitialized: false,
-  cookie: {
-    secure: false,
-    maxAge: 3600000 //1 hour
-  }
 }))
-router.use(passport.initialize())
 router.use(passport.session())
+router.use(passport.initialize())
 
 router.get('/users', (req, res) => {
   User.find()
