@@ -23,7 +23,11 @@ router.use(session({
   // secret: process.env.SESSION_SECRET,
   secret: "SECRET",
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: {
+    secure: false,
+    maxAge: 3600000 //1 hour
+  }
 }))
 router.use(passport.initialize())
 router.use(passport.session())
