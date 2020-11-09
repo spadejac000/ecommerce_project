@@ -35,8 +35,7 @@ router.get('/users', (req, res) => {
 
 // get the user info after login
 router.get('/', checkAuthenticated, (req, res) => {
-  console.log('hello here is the req: ', req.body)
-  console.log('here is the get request for users')
+  console.log('hello request: ', req.user)
   res.send({name: req.user.name, id: req.user._id})
 })
 

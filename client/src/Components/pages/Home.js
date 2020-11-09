@@ -27,9 +27,7 @@ const Home = () => {
       axios.post('/api/cart/userid', {id:myId}).then(response => {
         console.log(response)
       })
-      if (res.data.loggedIn === false) {
-        console.log('hello darkness my old friend')
-        console.log('here is the url: ', window.location.href)
+      if (res.data.loggedIn === false || res.data.loggedIn === 'undefined') {
         window.location.href = `${window.location.href}login`
       }
     })
