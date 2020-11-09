@@ -33,7 +33,7 @@ router.use(session({
   cookie: {
     secure: true,
     expires: cookieExpirationDate
-}
+  }
 }))
 router.use(passport.initialize())
 router.use(passport.session())
@@ -109,6 +109,7 @@ router.delete('/', (req, res) => {
 
 function checkAuthenticated(req, res, next) {
   if(req.isAuthenticated()) {
+    console.log('user is authenticated!!!')
     return next()
   } else {
     res.json({loggedIn: false})
