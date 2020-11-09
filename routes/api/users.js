@@ -1,7 +1,8 @@
-if(process.env.NODE_ENV === 'production') {
+if(process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
+const cookieParser = require('cookie-parser')
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
@@ -18,15 +19,20 @@ const session = require('express-session')
 // User model
 const User = require('../../models/User');
 
+router.use(cookieParser("lmkwygttstgsc"));
+const cookieExpirationDate = new Date();
+const cookieExpirationDays = 365;
+cookieExpirationDate.setDate(cookieExpirationDate.getDate() + cookieExpirationDays);
+
 router.use(flash())
 router.use(session({
-  secret: process.env.SESSION_SECRET,
-  // secret: "lmkwygttstgsc",
+  // secret: process.env.SESSION_SECRET,
+  secret: "lmkwygttstgsc",
   resave: false,
   saveUninitialized: false,
   cookie: {
     secure: true,
-    maxAge: 3600000 //1 hour
+    expires: cookieExpirationDate
 }
 }))
 router.use(passport.initialize())
