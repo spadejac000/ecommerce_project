@@ -6,12 +6,6 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const passport = require('passport');
-const initializePassport = require('../../passport-config');
-initializePassport(
-  passport, 
-  email => User.find(user => user.email === email),
-  id => User.find(user => user._id === id)
-)
 const flash = require('express-flash')
 const session = require('express-session')
 
@@ -27,6 +21,13 @@ router.use(session({
 }))
 router.use(passport.initialize())
 router.use(passport.session())
+
+const initializePassport = require('../../passport-config');
+initializePassport(
+  passport, 
+  email => User.find(user => user.email === email),
+  id => User.find(user => user._id === id)
+)
 
 router.get('/users', (req, res) => {
   User.find()
