@@ -50,6 +50,12 @@ const db = require('./config/keys').mongoURI
 // mongoose.connect(process.env.MONGODB_URI, {useMongoClient: true});
 
 
+
+app.get('/', (req, res) => {
+  console.log('hello request: ', req.user)
+  res.send({user: 'no user'})
+})
+
 // user routes
 // if(process.env.NODE_ENV !== 'production') {
 //   require('dotenv').config()
