@@ -1,6 +1,6 @@
-if(process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
+// if(process.env.NODE_ENV !== 'production') {
+//   require('dotenv').config()
+// }
 
 const express = require('express');
 const router = express.Router();
@@ -20,8 +20,8 @@ const User = require('../../models/User');
 
 router.use(flash())
 router.use(session({
-  // secret: process.env.SESSION_SECRET,
-  secret: "lmkwygttstgsc",
+  secret: process.env.SESSION_SECRET,
+  // secret: "lmkwygttstgsc",
   resave: false,
   saveUninitialized: false,
   cookie: {
