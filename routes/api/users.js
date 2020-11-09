@@ -20,7 +20,8 @@ const User = require('../../models/User');
 
 router.use(flash())
 router.use(session({
-  secret: process.env.SESSION_SECRET,
+  // secret: process.env.SESSION_SECRET,
+  secret: SECRET,
   resave: false,
   saveUninitialized: false
 }))
