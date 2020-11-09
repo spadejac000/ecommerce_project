@@ -24,7 +24,7 @@ router.use(session({
 router.use(passport.initialize())
 router.use(passport.session())
 
-router.get('/', checkAuthenticated, (req, res) => {
+router.get('/', (req, res) => {
   res.send({test: 'this is a test'})
 })
 
