@@ -31,7 +31,6 @@ const Login = () => {
 
   const login = (e) => {
     e.preventDefault()
-    console.log('the user login info: ', userLogin)
     axios.post('/api/users/login', userLogin).then(res => {
       window.location.href = res.data.redirect;
     }).catch(err => {

@@ -30,6 +30,7 @@ router.use(session({
   secret: "lmkwygttstgsc",
   resave: false,
   saveUninitialized: false,
+  proxy: true,
   cookie: {
     secure: true,
     expires: cookieExpirationDate
