@@ -25,8 +25,8 @@ router.use(session({
   resave: false,
   saveUninitialized: false,
 }))
-router.use(passport.session())
 router.use(passport.initialize())
+router.use(passport.session())
 
 router.get('/users', (req, res) => {
   User.find()
