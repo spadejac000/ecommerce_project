@@ -35,26 +35,22 @@ if(process.env.NODE_ENV === 'production') {
   })
 }
 
-//build mode
-// app.get('*', (req, res) => {  res.sendFile(path.join(__dirname+'/client/public/index.html'));
-// })
-
 //db config
 const db = require('./config/keys').mongoURI
 
 // connect to mongo
-mongoose
-  .connect(db, {useNewUrlParser: true, useUnifiedTopology: true})
-  .then(() => {
-    console.log('mongodb connected')
-  })
-  .catch(err => console.log(err))
+// mongoose
+//   .connect(db, {useNewUrlParser: true, useUnifiedTopology: true})
+//   .then(() => {
+//     console.log('mongodb connected')
+//   })
+//   .catch(err => console.log(err))
 
   // Changed to this line for Heroku
 // mongoose.connect(process.env.MONGODB_URI, {useMongoClient: true});
 
 
-// // user routes
+// user routes
 // if(process.env.NODE_ENV !== 'production') {
 //   require('dotenv').config()
 // }

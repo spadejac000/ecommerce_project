@@ -34,10 +34,15 @@ router.get('/users', (req, res) => {
 })
 
 // // get the user info after login
-router.get('/', checkAuthenticated, (req, res) => {
+router.get('/', (req, res) => {
   console.log('hello request: ', req.user)
-  res.send({name: req.user.name, id: req.user._id})
+  res.send({user: 'poop'})
 })
+
+// router.get('/', checkAuthenticated, (req, res) => {
+//   console.log('hello request: ', req.user)
+//   res.send({name: req.user.name, id: req.user._id})
+// })
 
 router.get('/login', checkNotAuthenticted, (req, res) => {
   res.json({message: 'this is the login page'})
