@@ -118,7 +118,7 @@ const Cart = () => {
         </p>
         </Col>
         <Col className="col-12 col-md-3">
-          <div className="card bg-dark p-3">
+          <div className="card bg-dark p-3 text-white">
           <p>
             Total ({cart.length} items): ${total}
           </p>

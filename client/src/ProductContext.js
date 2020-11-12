@@ -810,7 +810,7 @@ export const ProductProvider = (props) => {
         price: 20329.99,
         id: uuid(),
         description: 'This luxury DVD player can play any DVD in the entire world. Sit back a relax while watching all your favorite movies in the comfort of your own home using this DVD player. In addition, this unit comes with a 3 year warrenty. There has never been a better value on luxury DVD players. Act now while supplies last. (Financing for approved customers). Disclaimer - Not all DVDs from other countries or districts can actually be played on this device',
-        category: "Luxury"
+        category: "luxury"
       }
     ]
   )

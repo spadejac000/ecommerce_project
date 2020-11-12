@@ -3,7 +3,7 @@ import {
   Card, CardImg,CardBody,
   CardTitle, CardSubtitle, Button, Container, Row, InputGroup,
   InputGroupAddon,
-  Input, Col, Form 
+  Input, Col, Form, DropdownToggle, DropdownItem, DropdownMenu, InputGroupButtonDropdown
 } from 'reactstrap';
 import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,6 +15,10 @@ const ProductList = ({currentProducts}) => {
   const [search, setSearch] = useState('');
   const [products, setProducts] = useContext(ProductContext);
   const [initialValueProducts] = useState(products)
+
+  // dropdown category filter state and function
+  const [splitButtonOpen, setSplitButtonOpen] = useState(false);
+  const toggleSplit = () => setSplitButtonOpen(!splitButtonOpen);
 
     
   const updateSearch = (event) => {
@@ -31,10 +35,31 @@ const ProductList = ({currentProducts}) => {
     ))
   }
 
+  const handleCategoryFilter = (category) => {
+    setProducts(initialValueProducts.filter(
+      product => product.category === category
+    ))
+  }
+
   return(
     <Container>
       <Form onSubmit={handleSearch}>
         <InputGroup style={{marginBottom: "5rem"}}>
+          <InputGroupButtonDropdown addonType="prepend" isOpen={splitButtonOpen} toggle={toggleSplit}>
+            <DropdownToggle split outline  className="bg-dark"
+            //  onClick={() => {setProducts(initialValueProducts)}}
+            />
+            <DropdownMenu>
+              <DropdownItem header>Categories</DropdownItem>
+              <DropdownItem divider></DropdownItem>
+              <DropdownItem onClick={() => {handleCategoryFilter("appliance")}}>Appliance</DropdownItem>
+              <DropdownItem onClick={() => {handleCategoryFilter("book")}}>Book</DropdownItem>
+              <DropdownItem onClick={() => {handleCategoryFilter("sporting equipment")}}>Sporting Equipment</DropdownItem>
+              <DropdownItem onClick={() => {handleCategoryFilter("musical instruments")}}>Musical Instruments</DropdownItem>
+              <DropdownItem onClick={() => {handleCategoryFilter("electronics")}}>Electronics</DropdownItem>
+              <DropdownItem onClick={() => {handleCategoryFilter("luxury")}}>Luxury</DropdownItem>
+            </DropdownMenu>
+          </InputGroupButtonDropdown>
           <Input 
             placeholder="Search..." 
             value={search}

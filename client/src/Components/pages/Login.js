@@ -46,7 +46,7 @@ const Login = () => {
 
   return (
     <div>
-      <Form className="card bg-dark p-5 login-form" onSubmit={login}>
+      <Form className="card bg-dark p-5 login-form text-white" onSubmit={login}>
         <h1 className='text-center'>Login</h1>
         <FormGroup>
           <Label for="email">Email</Label>

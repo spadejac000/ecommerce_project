@@ -36,7 +36,6 @@ const Home = () => {
 
   return (
     <div>
-      {/* <h1>Hi {data.name}</h1> */}
       <ProductList currentProducts={currentProducts}/>
       <Pagination productsPerPage={productsPerPage} totalProducts={products.length} paginate={paginate}/>
     </div>

@@ -1,6 +1,6 @@
-if(process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
+// if(process.env.NODE_ENV !== 'production') {
+//   require('dotenv').config()
+// }
 
 const cookieParser = require('cookie-parser')
 const express = require('express');
@@ -27,12 +27,11 @@ cookieExpirationDate.setDate(cookieExpirationDate.getDate() + cookieExpirationDa
 router.use(flash())
 router.use(session({
   // secret: process.env.SESSION_SECRET,
-  secret: "lmkwygttstgsc",
   resave: false,
   saveUninitialized: false,
   proxy: true,
   cookie: {
-    secure: true,
+    secure: false,
     expires: cookieExpirationDate
   }
 }))
@@ -46,7 +45,9 @@ router.get('/users', (req, res) => {
 })
 
 // // get the user info after login
-router.get('/', checkAuthenticated, (req, res) => {
+router.get('/', 
+// checkAuthenticated, 
+(req, res) => {
   console.log('hello request: ', req.user)
   res.send({name: req.user.name, id: req.user._id})
 })

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Container} from 'reactstrap';
@@ -14,8 +14,28 @@ import Success from './Components/pages/Success';
 import Item from './Components/Item';
 
 function App() {
+  const [theme, setTheme] = useState('');
+
+  useEffect(() => {
+    const parsedTheme = localStorage.getItem("bg-secondary text-white") || ""
+    setTheme(parsedTheme)
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem("bg-secondary text-white", theme)
+  }, [theme])
+
+  const handleTheme = (e) => {
+    e.preventDefault()
+    if(theme.length === 0) {
+      setTheme("bg-secondary text-white")
+    } else {
+      setTheme('')
+    }
+  }
+
   return (
-    <div className="bg-secondary text-white" style={{minHeight: '100vh'}}>
+    <div className={theme} style={{minHeight: '100vh'}}>
       <ProductProvider>
         <InCartNumProvider>
           <Router>
@@ -30,9 +50,9 @@ function App() {
               <Route exact path="/success" component={Success} />
               </Switch>
             </Container>
-            <footer className="bg-dark p-2 text-center">
-              <span><a href="spadejac000.github.io" target="_blank">View my portfolio </a></span> | 
-              <span> Created by Jacob Spade &copy; 2020</span>
+            <footer className="bg-dark p-2 text-center text-white">
+              <span><a href="spadejac000.github.io" target="_blank">View My Portfolio </a></span> | <span><a href="" onClick={(e) => {handleTheme(e)}}>Change Theme</a></span> |
+              <span> Created by Jacob Spade &copy; 2020</span> 
             </footer>
           </Router>
         </InCartNumProvider>
