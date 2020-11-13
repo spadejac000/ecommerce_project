@@ -1,6 +1,6 @@
-// if(process.env.NODE_ENV !== 'production') {
-//   require('dotenv').config()
-// }
+if(process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 
 const cookieParser = require('cookie-parser')
 const express = require('express');
@@ -19,7 +19,6 @@ const session = require('express-session')
 // User model
 const User = require('../../models/User');
 
-router.use(cookieParser("lmkwygttstgsc"));
 const cookieExpirationDate = new Date();
 const cookieExpirationDays = 365;
 cookieExpirationDate.setDate(cookieExpirationDate.getDate() + cookieExpirationDays);
@@ -46,7 +45,7 @@ router.get('/users', (req, res) => {
 
 // // get the user info after login
 router.get('/', 
-// checkAuthenticated, 
+checkAuthenticated, 
 (req, res) => {
   console.log('hello request: ', req.user)
   res.send({name: req.user.name, id: req.user._id})
@@ -81,7 +80,6 @@ router.post('/register', checkNotAuthenticted, async (req, res) => {
       if (!doc) {
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
         const newUser = new User({
-          // id: Date.now().toString(),
           name: req.body.name,
           email: req.body.email,
           password: hashedPassword

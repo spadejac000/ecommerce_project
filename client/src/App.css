@@ -7,3 +7,12 @@
   width: 50%;
   margin: auto;
 }
+
+@media (max-width:600px) {
+
+  .login-form,
+  .register-form {
+    width: 100%;
+  }
+  
+}

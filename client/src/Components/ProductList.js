@@ -54,10 +54,10 @@ const ProductList = ({currentProducts}) => {
               <DropdownItem divider></DropdownItem>
               <DropdownItem onClick={() => {handleCategoryFilter("appliance")}}>Appliance</DropdownItem>
               <DropdownItem onClick={() => {handleCategoryFilter("book")}}>Book</DropdownItem>
-              <DropdownItem onClick={() => {handleCategoryFilter("sporting equipment")}}>Sporting Equipment</DropdownItem>
-              <DropdownItem onClick={() => {handleCategoryFilter("musical instruments")}}>Musical Instruments</DropdownItem>
               <DropdownItem onClick={() => {handleCategoryFilter("electronics")}}>Electronics</DropdownItem>
               <DropdownItem onClick={() => {handleCategoryFilter("luxury")}}>Luxury</DropdownItem>
+              <DropdownItem onClick={() => {handleCategoryFilter("musical instruments")}}>Musical Instruments</DropdownItem>
+              <DropdownItem onClick={() => {handleCategoryFilter("sporting equipment")}}>Sporting Equipment</DropdownItem>
             </DropdownMenu>
           </InputGroupButtonDropdown>
           <Input 

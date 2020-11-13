@@ -23,9 +23,8 @@ const Home = () => {
     axios.get('/api/users').then((res) => {
       setData(res.data)
       let myId = res.data.id;
-      console.log('loggin status: ', res.data)
       axios.post('/api/cart/userid', {id:myId}).then(response => {
-        console.log(response)
+        console.log('hello')
       })
       if (res.data.loggedIn === false) {
         window.location.href = `${window.location.href}login`

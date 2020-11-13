@@ -16,8 +16,6 @@ const Cart = () => {
 
   useEffect(() => {
     axios.get('/api/cart').then(res => {
-      console.log(res.data.userId)
-      console.log(res.data.carts)
       for(let i = 0; i < res.data.carts.length; i++) {
         if(res.data.userId === res.data.carts[i].userId) {
           setCart(res.data.carts[i].products)
@@ -76,7 +74,9 @@ const Cart = () => {
     for(let i = 0; i < cart.length; i++) {
       total = parseFloat(total) + parseFloat(cart[i].price)
     }
-    return total.toFixed(2)
+    total = Math.round( total * 1e2 ) / 1e2;
+    total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return total;
   }
  
   if(cart.length === 0) {
