@@ -52,12 +52,12 @@ const ProductList = ({currentProducts}) => {
             <DropdownMenu>
               <DropdownItem header>Categories</DropdownItem>
               <DropdownItem divider></DropdownItem>
-              <DropdownItem onClick={() => {handleCategoryFilter("appliance")}}>Appliance</DropdownItem>
-              <DropdownItem onClick={() => {handleCategoryFilter("book")}}>Book</DropdownItem>
+              <DropdownItem onClick={() => {handleCategoryFilter("appliance")}}>Appliances</DropdownItem>
+              <DropdownItem onClick={() => {handleCategoryFilter("book")}}>Books</DropdownItem>
               <DropdownItem onClick={() => {handleCategoryFilter("electronics")}}>Electronics</DropdownItem>
               <DropdownItem onClick={() => {handleCategoryFilter("luxury")}}>Luxury</DropdownItem>
-              <DropdownItem onClick={() => {handleCategoryFilter("musical instruments")}}>Musical Instruments</DropdownItem>
-              <DropdownItem onClick={() => {handleCategoryFilter("sporting equipment")}}>Sporting Equipment</DropdownItem>
+              <DropdownItem onClick={() => {handleCategoryFilter("Musical Instruments")}}>Musical Instruments</DropdownItem>
+              <DropdownItem onClick={() => {handleCategoryFilter("sports equipment")}}>Sporting Equipment</DropdownItem>
             </DropdownMenu>
           </InputGroupButtonDropdown>
           <Input 

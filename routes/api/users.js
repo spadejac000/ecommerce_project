@@ -19,7 +19,6 @@ const session = require('express-session')
 // User model
 const User = require('../../models/User');
 
-router.use(cookieParser("lmkwygttstgsc"));
 const cookieExpirationDate = new Date();
 const cookieExpirationDays = 365;
 cookieExpirationDate.setDate(cookieExpirationDate.getDate() + cookieExpirationDays);
@@ -27,12 +26,11 @@ cookieExpirationDate.setDate(cookieExpirationDate.getDate() + cookieExpirationDa
 router.use(flash())
 router.use(session({
   // secret: process.env.SESSION_SECRET,
-  secret: "lmkwygttstgsc",
   resave: false,
   saveUninitialized: false,
   proxy: true,
   cookie: {
-    secure: true,
+    secure: false,
     expires: cookieExpirationDate
   }
 }))
