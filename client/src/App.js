@@ -51,7 +51,7 @@ function App() {
               </Switch>
             </Container>
             <footer className="bg-dark p-2 text-center text-white">
-              <span><a href="spadejac000.github.io" target="_blank">View My Portfolio </a></span> | <span><a href="" onClick={(e) => {handleTheme(e)}}>Change Theme</a></span> |
+              <span><a href="https://spadejac000.github.io/" target="_blank">View My Portfolio </a></span> | <span><a href="" onClick={(e) => {handleTheme(e)}}>Change Theme</a></span> |
               <span> Created by Jacob Spade &copy; 2020</span> 
             </footer>
           </Router>
