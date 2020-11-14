@@ -9,25 +9,30 @@ import {InCartNumContext} from '../InCartNumContext';
 
 const NavBar = () => {
   const [productsInCart, setProductsInCart] = useContext(InCartNumContext);
-  const [loggedIn, setLoggedIn] = useState(true)
+  const [loggedIn, setLoggedIn] = useState(false)
   const [data, setData] = useState('')
+  let cartAccess = false;
 
   useEffect(() => {
-    axios.get('/api/cart').then((res) => {
-      axios.get('/api/users').then((response) => {
+
+    axios.get('/api/users').then((response) => {
+      if(response.data.loggedIn === false) {
+        cartAccess = false;
+        setLoggedIn(false)
+      } else {
+        cartAccess = true;
+        setLoggedIn(true)
+      }
+      axios.get('/api/cart', {cartAccess}).then((res) => {
         setData(response.data)
-        for(let i = 0; i < res.data.carts.length; i++) {
-          if(response.data.id === res.data.carts[i].userId) {
-            setProductsInCart(res.data.carts[i].products.length)
+        if(cartAccess === true) {
+          for(let i = 0; i < res.data.carts.length; i++) {
+            if(response.data.id === res.data.carts[i].userId) {
+              setProductsInCart(res.data.carts[i].products.length)
+            }
           }
         }
       })
-      let afterLastSlashUrl = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
-      if(afterLastSlashUrl === 'login' || afterLastSlashUrl === 'register') {
-        setLoggedIn(false)
-      } else {
-        setLoggedIn(true)
-      }
     })
   }, []);
 
@@ -38,8 +43,8 @@ const NavBar = () => {
   // logging out
   const submitHandler = (e) => {
     e.preventDefault()
+    cartAccess = false;
     axios.delete('/api/users/logout').then(res => {
-      console.log(res.data)
       window.location.href = res.data.redirect
       setLoggedIn(false)
     }).catch(err => {
@@ -48,6 +53,7 @@ const NavBar = () => {
   }
 
   if(loggedIn === true) {
+    console.log('loggedIn: ', loggedIn)
     return(
       <Navbar 
         color="dark" 
@@ -61,6 +67,9 @@ const NavBar = () => {
           <Nav className="ml-auto" navbar>
             <NavItem>
               <NavLink>Welcome, {data.name}</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/orders">Orders</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/">Home</NavLink>
@@ -96,6 +105,12 @@ const NavBar = () => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
+            <NavItem>
+              <NavLink href="/">Home</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/cart"><FontAwesomeIcon size="lg" icon={faShoppingCart}/>  <Badge color="danger">{productsInCart}</Badge></NavLink>
+            </NavItem>
             <NavItem>
               <NavLink href="/login">Login</NavLink>
             </NavItem>

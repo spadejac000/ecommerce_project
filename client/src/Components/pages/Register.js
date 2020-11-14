@@ -24,7 +24,6 @@ const Register = () => {
   const register = (e) => {
     e.preventDefault()
     axios.post('/api/users/register', userInfo).then(res => {
-      console.log(res.data)
       window.location.href = res.data.redirect;
     }).catch(err => {
       console.log(err)

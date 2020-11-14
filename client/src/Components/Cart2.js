@@ -17,8 +17,6 @@ class Cart extends Component {
 
   componentDidMount() {
     axios.get('/api/cart').then(res => {
-      console.log(res.data.userId)
-      console.log(res.data.carts)
       for(let i = 0; i < res.data.carts.length; i++) {
         if(res.data.userId === res.data.carts[i].userId) {
           this.setState({cart: res.data.carts[i].products})

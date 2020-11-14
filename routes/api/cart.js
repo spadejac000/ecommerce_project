@@ -13,7 +13,8 @@ const User = require('../../models/User');
 
 let userId = '';
 
-router.get("/", (req, res) => {
+router.get("/", 
+(req, res) => {
   Cart.find()
   .sort({date: -1})
   .then(carts => res.send({carts, userId: userId}))
@@ -116,7 +117,6 @@ router.post('/checkout', async (req, res) => {
 // Public
 router.delete('/:id', async (req, res) => {
   let cart = await Cart.findOne({ userId })
-  console.log('the cart: ', cart)
 
   //delete cart item
   cart.update({ $pull: { products : {_id: req.params.id }}}, function (err, data) {
@@ -140,7 +140,14 @@ router.delete('/cartcontent/hello/:id', async (req, res) => {
 // delete all carts in application
 router.delete('/everycart/hello', (req, res) => {
   Cart.deleteMany({}, (err) => console.log('all carts have been deleted'))
-  console.log('every cart has been deleted')
 })
+
+function checkAuthenticated(req, res, next) {
+  if(req.isAuthenticated()) {
+    return next()
+  } else {
+    res.json({loggedIn: false})
+  }
+}
 
 module.exports = router;

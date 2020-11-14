@@ -16,7 +16,6 @@ const Cart = () => {
       axios.get('/api/items').then((res) => {
       // handle success
       setProducts(res.data)
-      console.log('the products: ', products)
     })
   }, []);
 
@@ -39,7 +38,7 @@ const Cart = () => {
       clearCart()
       window.location.href = response.data.redirect
     } else {
-      console.log('poooop. this did not work')
+      console.log('this did not work')
     }
   }
 

@@ -16,19 +16,25 @@ const Cart = () => {
 
   useEffect(() => {
     axios.get('/api/cart').then(res => {
-      for(let i = 0; i < res.data.carts.length; i++) {
-        if(res.data.userId === res.data.carts[i].userId) {
-          setCart(res.data.carts[i].products)
-          setCartId(res.data.carts[i]._id)
+      axios.get('/api/users').then(response => {
+        if (response.data.loggedIn !== false) {
+          for(let i = 0; i < res.data.carts.length; i++) {
+            if(res.data.userId === res.data.carts[i].userId) {
+              setCart(res.data.carts[i].products)
+              setCartId(res.data.carts[i]._id)
+            }
+          }
+        } else {
+          window.location.href = window.location.href.replace(/\/[^\/]*$/, '/login')
         }
-      }
+      })
+      
     })
   }, []);
 
   // remove all items from cart after purchase
   const clearCart = (id) => {
     axios.delete(`/api/cart/cartcontent/hello/${id}`).then(response => {
-      console.log('here is the cart: ', response.data)
       const cartList = []
       setCart(cartList);
     });
@@ -37,7 +43,6 @@ const Cart = () => {
   // remove all items from cart before purchase
   const deleteAllItemsInCart = (id) => {
     axios.delete(`/api/cart/cartcontent/hello/${id}`).then(response => {
-      console.log('here is the cart: ', response.data)
       const cartList = []
       setCart(cartList);
       setProductsInCart(0)
@@ -55,7 +60,7 @@ const Cart = () => {
       clearCart()
       window.location.href = response.data.redirect
     } else {
-      console.log('this did not work', response.data)
+      console.log('this did not work')
     }
   }
 

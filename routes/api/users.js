@@ -19,7 +19,6 @@ const session = require('express-session')
 // User model
 const User = require('../../models/User');
 
-router.use(cookieParser("lmkwygttstgsc"));
 const cookieExpirationDate = new Date();
 const cookieExpirationDays = 365;
 cookieExpirationDate.setDate(cookieExpirationDate.getDate() + cookieExpirationDays);
@@ -27,12 +26,11 @@ cookieExpirationDate.setDate(cookieExpirationDate.getDate() + cookieExpirationDa
 router.use(flash())
 router.use(session({
   // secret: process.env.SESSION_SECRET,
-  secret: "lmkwygttstgsc",
   resave: false,
   saveUninitialized: false,
   proxy: true,
   cookie: {
-    secure: true,
+    secure: false,
     expires: cookieExpirationDate
   }
 }))
@@ -49,7 +47,6 @@ router.get('/users', (req, res) => {
 router.get('/', 
 checkAuthenticated, 
 (req, res) => {
-  console.log('hello request: ', req.user)
   res.send({name: req.user.name, id: req.user._id})
 })
 
@@ -105,13 +102,11 @@ router.delete('/logout', (req, res) => {
 //route DELETE api/users
 // Delete all users
 router.delete('/', (req, res) => {
-  console.log('i recieved a delete ALL request for all users!!!')
   User.deleteMany({}, (err) => console.log(err))
 })
 
 function checkAuthenticated(req, res, next) {
   if(req.isAuthenticated()) {
-    console.log('user is authenticated!!!')
     return next()
   } else {
     res.json({loggedIn: false})

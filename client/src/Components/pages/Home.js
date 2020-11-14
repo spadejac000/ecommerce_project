@@ -26,9 +26,6 @@ const Home = () => {
       axios.post('/api/cart/userid', {id:myId}).then(response => {
         console.log('hello')
       })
-      if (res.data.loggedIn === false) {
-        window.location.href = `${window.location.href}login`
-      }
     })
 
   }, [])

@@ -41,37 +41,47 @@ const Item = (props) => {
   }, [])
 
   const addToCart = () => {
-    setProductsInCart(productsInCart + 1)
+    axios.get('/api/users').then(res => {
+      if(res.data.loggedIn !== false) {
+        setProductsInCart(productsInCart + 1)
 
-    let theName = '';
-    let thePrice = '';
-    let theImage = '';
-
-    //data to send to server and add to database when clicking the 'add to cart' button
-    const theData = () => {
-      products.map(product => {
-        if(product.id == itemId) {
-          const {name, price, image} = product;
-          theName = name;
-          thePrice = price;
-          theImage = image;
-          return {theName, thePrice, theImage};
+        let theName = '';
+        let thePrice = '';
+        let theImage = '';
+    
+        //data to send to server and add to database when clicking the 'add to cart' button
+        const theData = () => {
+          products.map(product => {
+            if(product.id == itemId) {
+              const {name, price, image} = product;
+              theName = name;
+              thePrice = price;
+              theImage = image;
+              return {theName, thePrice, theImage};
+            }
+          })
         }
-      })
-    }
-
-    theData();
-    let name = theName
-    let price = thePrice
-    let image = theImage
-    let data = {name, price, image, theUserId}
-
-    axios.post('/api/cart', data).then(res => {
-      console.log(res.data)
-      // setProductsInCart(productsInCart + 1)
+    
+        theData();
+        let name = theName
+        let price = thePrice
+        let image = theImage
+        let data = {name, price, image, theUserId}
+    
+        axios.post('/api/cart', data).then(res => {
+          console.log('hello')
+        })
+        
+        setFadeIn(true)
+      } else {
+        let the_arr = window.location.href.split('/');
+        the_arr.pop()
+        the_arr.pop()
+        the_arr = the_arr.join('/')
+        window.location.href = `${the_arr}/login`
+      }
     })
     
-    setFadeIn(true)
   }
   
 
